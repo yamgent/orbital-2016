@@ -7,6 +7,13 @@ Rails.application.routes.draw do
 
   get 'sessions/destroy'
 
+  get 'admin' => 'admin#index'
+  controller :sessions do
+    get 'login' => :new
+    post 'login' => :created
+    delete 'logout' => :destroy
+  end
+
   resources :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
