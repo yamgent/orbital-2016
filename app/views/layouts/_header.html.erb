@@ -2,12 +2,12 @@
 
 <div class="header">
     <div class="nav-links">
-        <a class="current" href="">Major &amp; Minor</a> | 
-        <a href="">Modules</a> | 
-        <a href="">Tutorials</a>
+        <%= link_to "Major & Minor", {:controller => "admin"}, :class => "current" %> | 
+        <%= link_to "Modules", {:controller => "admin"} %> |
+        <%= link_to "Tutorials", {:controller => "admin"} %>
     </div>
 
-    <a class="logout-button" href="">Logout</a>
-    <%= image_tag("logo.png", :size => "68x23", :alt => "CORS logo", :class => "logo") %>
-    <span class="user-id">Matric No</span>
+    <%= link_to "Logout", {:controller => "admin"}, :class => "logout-button" %>
+    <%= link_to image_tag("logo.png", :size => "68x23", :alt => "CORS logo"), {:controller => "admin"}, :class => "logo" %>
+    <span class="user-id">#My Matric No</span>
 </div>
