@@ -1,0 +1,60 @@
+.header {
+	padding: 10px;
+	border-bottom: 2px solid #458FC4;
+	box-shadow: 0 4px 2px -2px #888888;
+	overflow: auto;
+	margin-bottom: 10px;
+}
+
+.header .nav-links {
+	float: left;
+}
+
+.header .nav-links a {
+	text-decoration: none;
+	background-color: inherit;
+	color: #000000;
+}
+
+.header .nav-links a:hover {
+	text-decoration: underline;
+	background-color: inherit;
+}
+
+.header .nav-links a.current {
+	padding: 2px;
+	border: 2px solid #DE891B;
+	background-color: #EDD7B9;
+}
+
+.header .nav-links a.current:hover {
+	text-decoration: none;
+	color: #000000;
+}
+
+.header .logo {
+	clear: both;
+	float: left;
+}
+
+.header .logout-button {
+	float: right;
+	padding: 3px 12px;
+	border: 1px solid #41B052;
+	box-shadow: 1px 1px 1px #888888;
+	color: #000000;
+	text-decoration: none;
+	background: linear-gradient(#D5F7DA, #9BF2A8);
+}
+
+.header .logout-button:hover {
+	background: linear-gradient(#FFFFFF, #9BF2A8);
+}
+
+.header .logout-button:active {
+	background: linear-gradient(#9BF2A8, #D5F7DA);
+}
+
+.header .user-id {
+	float: right;
+}
