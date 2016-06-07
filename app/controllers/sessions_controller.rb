@@ -7,8 +7,8 @@ class SessionsController < ApplicationController
     user = User.find_by(matricno: params[:matricno])
     if user and user.authenticate(params[:password])
       session[:user_id] = user.id
-      # TODO: When we have the proper tutorial bidding page, modify this
-      redirect_to admin_url
+      # Redirect to tutorials/view
+      redirect_to tutorials_view_url
     else
       redirect_to login_url, alert:"Invalid Username or Password"
     end
