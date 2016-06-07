@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  get 'tutorials/view'
+
+  get 'tutorials/select'
+
+  get 'tutorials/rank'
+
   get 'admin/index'
 
   get 'sessions/new'
