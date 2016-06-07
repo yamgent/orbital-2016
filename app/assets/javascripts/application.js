@@ -14,3 +14,6 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+// Bootstrap version: 4.0.0-alpha.2
+//= require bootstrap.min
