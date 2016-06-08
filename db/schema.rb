@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20160608033418) do
   end
 
   create_table "lectures", force: :cascade do |t|
+    t.integer  "course_id"
     t.integer  "day"
     t.time     "start_time"
     t.time     "end_time"
@@ -28,13 +29,18 @@ ActiveRecord::Schema.define(version: 20160608033418) do
     t.datetime "updated_at", null: false
   end
 
+  add_index "lectures", ["course_id"], name: "index_lectures_on_course_id"
+
   create_table "tutorials", force: :cascade do |t|
+    t.integer  "course_id"
     t.integer  "day"
     t.time     "start_time"
     t.time     "end_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_index "tutorials", ["course_id"], name: "index_tutorials_on_course_id"
 
   create_table "user_course_selections", force: :cascade do |t|
     t.integer  "user_id"
