@@ -11,7 +11,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<%= render 'layouts/header' unless current_page?('/login') %>
+<%= render 'layouts/header' unless current_page?('/login') or current_page?('/') %>
 <%= yield %>
 </body>
 </html>
