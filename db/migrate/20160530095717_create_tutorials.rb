@@ -1,5 +1,5 @@
 class CreateTutorials < ActiveRecord::Migration
-  def up 
+  def change
     create_table :tutorials do |t|
       t.integer :day
 
@@ -8,9 +8,5 @@ class CreateTutorials < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-  end
-
-  def down
-    drop_table :tutorials
   end
 end
