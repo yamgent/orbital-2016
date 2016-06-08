@@ -4,14 +4,43 @@
     <div class="col-md-6">
       <p>Your selected tutorial selection:</p>
 
-        <%= button_to "Edit Selection", { action: "select" }, method: "get",
-          class: "btn btn-primary" %>
+      <%= button_to "Edit Selection", { action: "select" }, method: "get",
+      class: "btn btn-primary" %>
       <br>
 
       <!-- TODO: Remove this list when ready to add logic -->
       <ol>
         <% @user.courses.each do |c| %>
-          <li><%= c.name %></li>
+        <li>
+          <%= c.name %>
+          <!-- Print out each individual lectures -->
+          <ul>
+            <% c.lectures.each do |lec|  %>
+            <li>
+              <% case lec.day %>
+              <% when 0 %>
+              Sunday
+              <% when 1 %>
+              Monday
+              <% when 2 %>
+              Tuesday
+              <% when 3 %>
+              Wednesday
+              <% when 4 %>
+              Thursday
+              <% when 5 %>
+              Friday
+              <% when 6 %>
+              Saturday
+              <% end %>
+
+              <%= lec.start_time %>
+              to
+              <%= lec.end_time %>
+            </li>
+            <% end %>
+          </ul>
+        </li>
         <% end %>
       </ol>
 
