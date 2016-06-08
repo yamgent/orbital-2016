@@ -8,6 +8,13 @@
           class: "btn btn-primary" %>
       <br>
 
+      <!-- TODO: Remove this list when ready to add logic -->
+      <ol>
+        <% @user.courses.each do |c| %>
+          <li><%= c.name %></li>
+        <% end %>
+      </ol>
+
       <table class="table">
         <thead>
           <tr>
