@@ -3,6 +3,7 @@
 		&#9776;
 	</button>
 	<%= link_to image_tag("logo.png", :size => "68x23", :alt => "CORS logo"), root_path %>
+
 	<div class="pull-xs-right">
 		<span class="user-id"><%= session[:user_matricNo] %></span>
 		<%= link_to "Logout", {:controller => "sessions", :action => "destroy"}, :class => "btn btn-danger-outline" %>
