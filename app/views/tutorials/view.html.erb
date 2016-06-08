@@ -1,2 +1,50 @@
-<h1>Tutorials Perferences (Main Page)</h1>
-<p>Find me in app/views/tutorials/view.html.erb</p>
+<h1>Tutorials Preferences (Main Page)</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <p>Your selected tutorial selection:</p>
+
+        <%= button_to "Edit Selection", { action: "select" }, method: "get",
+          class: "btn btn-primary" %>
+      <br>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Module</th>
+            <th>Type</th>
+            <th>Day</th>
+            <th>Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>ABC123</td>
+            <td>Tutorial</td>
+            <td>Tuesday</td>
+            <td>17:00 - 19:00</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>ABC123</td>
+            <td>Tutorial</td>
+            <td>Tuesday</td>
+            <td>17:00 - 19:00</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>ABC123</td>
+            <td>Tutorial</td>
+            <td>Tuesday</td>
+            <td>17:00 - 19:00</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-6">
+      <% render 'layouts/timetable_preview' %>
+    </div>
+  </div>
+</div>
