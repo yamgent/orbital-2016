@@ -11,7 +11,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<%= render 'layouts/header' if current_page?(:controller => "users") %>
+<%= render 'layouts/header' unless current_page?('/login') %>
 <%= yield %>
 </body>
 </html>
