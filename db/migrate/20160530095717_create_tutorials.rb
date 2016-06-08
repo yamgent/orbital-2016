@@ -1,6 +1,8 @@
 class CreateTutorials < ActiveRecord::Migration
   def change
     create_table :tutorials do |t|
+      t.belongs_to :course, index: true
+
       t.integer :day
 
       t.time :start_time
