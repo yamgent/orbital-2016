@@ -19,9 +19,9 @@
             <li>
               <%= getDay(lec.day) %>
 
-              <%= lec.start_time %>
+              <%= getHourAndMin(lec.start_time) %>
               to
-              <%= lec.end_time %>
+              <%= getHourAndMin(lec.end_time) %>
             </li>
             <% end %>
           </ul>
@@ -56,7 +56,7 @@
             <td><%= tut.course.code %></td>
             <td>Tutorial</td>
             <td><%= getDay(tut.day) %></td>
-            <td><%= tut.start_time %> - <%= tut.end_time %></td>
+            <td><%= getHourAndMin(tut.start_time) %> - <%= getHourAndMin(tut.end_time) %></td>
           </tr>
           <% end %>
         </tbody>

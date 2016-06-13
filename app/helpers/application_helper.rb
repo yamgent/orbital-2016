@@ -19,4 +19,8 @@ module ApplicationHelper
 
     return "UNKNOWN_DATE"
   end
+
+  def getHourAndMin(dateTime)
+    return dateTime.strftime("%H:%M")
+  end
 end
