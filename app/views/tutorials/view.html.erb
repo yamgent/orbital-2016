@@ -17,22 +17,7 @@
           <ul>
             <% c.lectures.each do |lec|  %>
             <li>
-              <% case lec.day %>
-              <% when 0 %>
-              Sunday
-              <% when 1 %>
-              Monday
-              <% when 2 %>
-              Tuesday
-              <% when 3 %>
-              Wednesday
-              <% when 4 %>
-              Thursday
-              <% when 5 %>
-              Friday
-              <% when 6 %>
-              Saturday
-              <% end %>
+              <%= getDay(lec.day) %>
 
               <%= lec.start_time %>
               to
@@ -43,6 +28,7 @@
         </li>
         <% end %>
       </ol>
+
 
       <table class="table">
         <thead>
@@ -55,27 +41,24 @@
           </tr>
         </thead>
         <tbody>
+          <% row = 0 %>
+
+          <% if @user.tutorials.size == 0 %>
           <tr>
-            <th scope="row">1</th>
-            <td>ABC123</td>
-            <td>Tutorial</td>
-            <td>Tuesday</td>
-            <td>17:00 - 19:00</td>
+            <td colspan="5">You did not select any preferences yet.</td>
           </tr>
+          <% end %>
+
+          <% @user.tutorials.each do |tut| %>
           <tr>
-            <th scope="row">2</th>
-            <td>ABC123</td>
+            <% row = row + 1 %>
+            <th scope="row"><%= row %></th>
+            <td><%= tut.course.code %></td>
             <td>Tutorial</td>
-            <td>Tuesday</td>
-            <td>17:00 - 19:00</td>
+            <td><%= getDay(tut.day) %></td>
+            <td><%= tut.start_time %> - <%= tut.end_time %></td>
           </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>ABC123</td>
-            <td>Tutorial</td>
-            <td>Tuesday</td>
-            <td>17:00 - 19:00</td>
-          </tr>
+          <% end %>
         </tbody>
       </table>
     </div>
