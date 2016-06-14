@@ -1,5 +1,5 @@
 <table id="timetable-preview">
-	<tbody class="timetable-heading">
+	<thead>
 		<tr>
 			<th colspan="1"><div>0800</div></th>
 			<% for i in 9..23 do %>
@@ -7,18 +7,39 @@
 			<% end %>
 			<th colspan="2"><div>0000</div></th>
 		</tr>
-	</tbody>
+	</thead>
 	
-	<% @days = [ "mon", "tue", "wed", "thu", "fri" ] %>
-	<% @days.each do |days| %>
-		<tbody class="timetable-row">
+	<tbody>
+		<% @days = [ "mon", "tue", "wed", "thu", "fri" ] %>
+		<% @days.each do |day| %>
 			<tr>
-				<th><div><%= days %></div></th>
+				<th><div><%= day %></div></th>
 				<% for i in 8..23 do %>
-					<td id="<%= days %>_<%= sprintf('%02d', i) %>00"></td>
-					<td id="<%= days %>_<%= sprintf('%02d', i) %>30"></td>
+					<td id="<%= day %>_<%= sprintf('%02d', i) %>00"></td>
+					<td id="<%= day %>_<%= sprintf('%02d', i) %>30"></td>
 				<% end %>
 			</tr>
-		</tbody>
-	<% end %>
+		<% end %>
+	</tbody>
 </table>
+
+<%= javascript_tag do %>
+	(function( $ ){
+
+		$.fn.addSlot = function(  ) {
+			return this;
+		};
+
+		$.fn.removeSlot = function() {
+			return this;
+		};
+
+		$.fn.removeAllSlots = function() {
+			return this;
+		};
+
+	})( jQuery );
+
+	var timetable = $( "#timetable-preview" );
+	//timetable.addSelection( "ABC123", "mon_1700", 2 );
+<% end %>
