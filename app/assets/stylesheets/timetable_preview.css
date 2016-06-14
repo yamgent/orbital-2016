@@ -4,12 +4,12 @@
 	font-size: .5em;
 }
 
-#timetable-preview #times th div {
+#timetable-preview .timetable-heading th div {
 	text-align: right;
 	margin-right: -1.2em;
 }
 
-#timetable-preview .day th div {
+#timetable-preview .timetable-row th div {
 	float: right;
 	margin-right: 1.5em;
 	line-height: 1.5em;
@@ -18,16 +18,13 @@
 	width: 0;
 }
 
-#timetable-preview .m00 {
-	border-left: 1px solid #EEE;
+#timetable-preview .timetable-row th,
+#timetable-preview .timetable-row td:nth-of-type(2n) {
+	border-right: 1px solid #e5e5e5;
 }
 
-#timetable-preview .m30 {
-	border-right: 1px solid #EEE;
-}
-
-#timetable-preview .day td {
-	border-top: 1px solid #EEE;
-	border-bottom: 1px solid #EEE;
+#timetable-preview td {
+	border-top: 1px solid #e5e5e5;
+	border-bottom: 1px solid #e5e5e5;
 	height: 10em;
 }

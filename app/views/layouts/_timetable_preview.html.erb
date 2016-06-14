@@ -1,6 +1,6 @@
 <table id="timetable-preview">
-	<tbody>
-		<tr id="times">
+	<tbody class="timetable-heading">
+		<tr>
 			<th colspan="1"><div>0800</div></th>
 			<% for i in 9..23 do %>
 				<th colspan="2"><div><%= sprintf('%02d', i) %>00</div></th>
@@ -11,12 +11,12 @@
 	
 	<% @days = [ "mon", "tue", "wed", "thu", "fri" ] %>
 	<% @days.each do |days| %>
-		<tbody class="day" id="<%= days %>">
+		<tbody class="timetable-row">
 			<tr>
 				<th><div><%= days %></div></th>
 				<% for i in 8..23 do %>
-					<td class="<%= days %> h<%= sprintf('%02d', i) %> m00"></td>
-					<td class="<%= days %> h<%= sprintf('%02d', i) %> m30"></td>
+					<td id="<%= days %>_<%= sprintf('%02d', i) %>00"></td>
+					<td id="<%= days %>_<%= sprintf('%02d', i) %>30"></td>
 				<% end %>
 			</tr>
 		</tbody>
