@@ -11,7 +11,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<%= render 'layouts/header' unless session[:user_id] == nil %>
+<%= render 'layouts/banner' unless session[:user_id] == nil %>
 <%= yield %>
 </body>
 </html>

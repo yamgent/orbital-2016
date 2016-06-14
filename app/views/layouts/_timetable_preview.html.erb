@@ -1,0 +1,24 @@
+<table id="timetable-preview">
+	<tbody>
+		<tr id="times">
+			<th colspan="1"><div>0800</div></th>
+			<% for i in 9..23 do %>
+				<th colspan="2"><div><%= sprintf('%02d', i) %>00</div></th>
+			<% end %>
+			<th colspan="2"><div>0000</div></th>
+		</tr>
+	</tbody>
+	
+	<% @days = [ "mon", "tue", "wed", "thu", "fri" ] %>
+	<% @days.each do |days| %>
+		<tbody class="day" id="<%= days %>">
+			<tr>
+				<th><div><%= days %></div></th>
+				<% for i in 8..23 do %>
+					<td class="<%= days %> h<%= sprintf('%02d', i) %> m00"></td>
+					<td class="<%= days %> h<%= sprintf('%02d', i) %> m30"></td>
+				<% end %>
+			</tr>
+		</tbody>
+	<% end %>
+</table>

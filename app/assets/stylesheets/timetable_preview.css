@@ -1,0 +1,33 @@
+#timetable-preview {
+	width: 100%;
+	table-layout: fixed;
+	font-size: .5em;
+}
+
+#timetable-preview #times th div {
+	text-align: right;
+	margin-right: -1.2em;
+}
+
+#timetable-preview .day th div {
+	float: right;
+	margin-right: 1.5em;
+	line-height: 1.5em;
+	text-transform: uppercase;
+    word-wrap: break-word;
+	width: 0;
+}
+
+#timetable-preview .m00 {
+	border-left: 1px solid #EEE;
+}
+
+#timetable-preview .m30 {
+	border-right: 1px solid #EEE;
+}
+
+#timetable-preview .day td {
+	border-top: 1px solid #EEE;
+	border-bottom: 1px solid #EEE;
+	height: 10em;
+}
