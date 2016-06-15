@@ -2,14 +2,15 @@
 	width: 100%;
 	table-layout: fixed;
 	font-size: .5em;
+	border-collapse: separate;
 }
 
-#timetable-preview thead div {
+#timetable-preview thead th div {
 	text-align: right;
 	margin-right: -1.2em;
 }
 
-#timetable-preview tbody div {
+#timetable-preview tbody th div {
 	float: right;
 	margin-right: 1.5em;
 	line-height: 1.5em;
@@ -23,8 +24,29 @@
 	border-right: 1px solid #e5e5e5;
 }
 
+#timetable-preview thead th[colspan="2"] {
+	border-bottom: 1px solid #e5e5e5;
+}
+
 #timetable-preview tbody td {
-	border-top: 1px solid #e5e5e5;
 	border-bottom: 1px solid #e5e5e5;
 	height: 10em;
+	padding: 0;
 }
+
+.period {
+	position: relative;
+	height: 100%;
+	border-radius: 4px;
+	background-color: #e5e5e5;
+}
+
+.period.t030 { width: 100%; }
+.period.t100 { width: 200%; }
+.period.t130 { width: 300%; }
+.period.t200 { width: 400%; }
+.period.t230 { width: 500%; }
+.period.t300 { width: 600%; }
+.period.color-1 { background-color: #e6e6ff; }
+.period.color-2 { background-color: #ffe6ff; }
+.period.color-3 { background-color: #ffe6e6; }

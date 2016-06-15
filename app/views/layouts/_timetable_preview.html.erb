@@ -15,8 +15,8 @@
 			<tr>
 				<th><div><%= day %></div></th>
 				<% for i in 8..23 do %>
-					<td id="<%= day %>_<%= sprintf('%02d', i) %>00"></td>
-					<td id="<%= day %>_<%= sprintf('%02d', i) %>30"></td>
+					<td id="<%= day %>_<%= i %>00"></td>
+					<td id="<%= day %>_<%= i %>30"></td>
 				<% end %>
 			</tr>
 		<% end %>
@@ -24,22 +24,48 @@
 </table>
 
 <%= javascript_tag do %>
+
 	(function( $ ){
 
-		$.fn.addSlot = function(  ) {
+		var $timetable = $( "#timetable-preview" );
+
+		$timetable.addPeriod = function( startTime, duration, code, name, type ) {
+			$timetable.find( "#" + startTime ).append(
+				$( "<div/>" )
+				.addClass( "period color-1 t" + duration )
+				.append( $( "<div/>" ).text( code ) )
+				.append( $( "<div/>" ).text( name ) )
+				.append( $( "<div/>" ).text( type ) )
+			);
 			return this;
 		};
 
-		$.fn.removeSlot = function() {
+		$timetable.removePeriod = function( startTime ) {
+			$timetable.find( "#" + startTime ).empty();
 			return this;
 		};
 
-		$.fn.removeAllSlots = function() {
+		$timetable.removeAllPeriods = function() {
 			return this;
 		};
+
+
+
+
+		// testing asd
+
+		<% if @user != nil %>
+			<% @user.tutorials.each do |tut| %>
+				$timetable.addPeriod( 
+					"<%= getDay(tut.day)[0..2].downcase %>_<%= getHourAndMinAsInt(tut.start_time) %>", 
+					"<%= getHourAndMinAsInt(tut.end_time) - getHourAndMinAsInt(tut.start_time) %>", 
+					"<%= tut.course.code %>", 
+					"<%= tut.course.name %>", 
+					"Tutorial" 
+				);
+			<% end %>
+		<% end %>
 
 	})( jQuery );
 
-	var timetable = $( "#timetable-preview" );
-	//timetable.addSelection( "ABC123", "mon_1700", 2 );
 <% end %>

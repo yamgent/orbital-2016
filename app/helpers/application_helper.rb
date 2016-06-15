@@ -23,4 +23,8 @@ module ApplicationHelper
   def getHourAndMin(dateTime)
     return dateTime.strftime("%H:%M")
   end
+
+  def getHourAndMinAsInt(dateTime)
+    return dateTime.strftime("%H%M").to_i
+  end
 end
