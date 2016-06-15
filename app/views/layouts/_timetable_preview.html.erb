@@ -10,13 +10,12 @@
 	</thead>
 	
 	<tbody>
-		<% @days = [ "mon", "tue", "wed", "thu", "fri" ] %>
-		<% @days.each do |day| %>
+		<% [ "mon", "tue", "wed", "thu", "fri" ].each do |day| %>
 			<tr>
 				<th><div><%= day %></div></th>
 				<% for i in 8..23 do %>
-					<td id="<%= day %>_<%= i %>00"></td>
-					<td id="<%= day %>_<%= i %>30"></td>
+					<td id="<%= day %>-<%= i %>00"></td>
+					<td id="<%= day %>-<%= i %>30"></td>
 				<% end %>
 			</tr>
 		<% end %>
@@ -25,47 +24,35 @@
 
 <%= javascript_tag do %>
 
-	(function( $ ){
+	function GetTimetableInstance() {
 
+		if (!(this instanceof GetTimetableInstance)){
+			return new GetTimetableInstance();
+		}
+
+		var days = [ "sun", "mon", "tue", "wed", "thu", "fri", "sat" ];
 		var $timetable = $( "#timetable-preview" );
 
-		$timetable.addPeriod = function( startTime, duration, code, name, type ) {
-			$timetable.find( "#" + startTime ).append(
+		this.addPeriod = function( day, startTime, endTime, code, name, type ) {
+			$timetable.find( "#" + days[day] + "-" + startTime ).append(
 				$( "<div/>" )
-				.addClass( "period color-1 t" + duration )
-				.append( $( "<div/>" ).text( code ) )
-				.append( $( "<div/>" ).text( name ) )
-				.append( $( "<div/>" ).text( type ) )
+				.addClass( "period color-1 t" + (endTime - startTime) )
+				.append( $( "<span/>" ).text( code ) )
+				.append( $( "<span/>" ).text( name ) )
+				.append( $( "<span/>" ).text( type ) )
 			);
 			return this;
 		};
 
-		$timetable.removePeriod = function( startTime ) {
-			$timetable.find( "#" + startTime ).empty();
+		this.removePeriod = function( day, startTime ) {
+			$timetable.find( "#" + days[day] + "-" + startTime ).empty();
 			return this;
 		};
 
-		$timetable.removeAllPeriods = function() {
+		this.removeAllPeriods = function() {
 			return this;
 		};
 
-
-
-
-		// testing asd
-
-		<% if @user != nil %>
-			<% @user.tutorials.each do |tut| %>
-				$timetable.addPeriod( 
-					"<%= getDay(tut.day)[0..2].downcase %>_<%= getHourAndMinAsInt(tut.start_time) %>", 
-					"<%= getHourAndMinAsInt(tut.end_time) - getHourAndMinAsInt(tut.start_time) %>", 
-					"<%= tut.course.code %>", 
-					"<%= tut.course.name %>", 
-					"Tutorial" 
-				);
-			<% end %>
-		<% end %>
-
-	})( jQuery );
+	}
 
 <% end %>

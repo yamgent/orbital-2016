@@ -69,3 +69,20 @@
     </div>
   </div>
 </div>
+
+<%= javascript_tag do %>
+
+  var timetable = GetTimetableInstance();
+
+  <% @user.tutorials.each do |tut| %>
+    timetable.addPeriod( 
+      <%= tut.day %>, 
+      <%= getHourAndMinAsInt(tut.start_time) %>, 
+      <%= getHourAndMinAsInt(tut.end_time) %>, 
+      "<%= tut.course.code %>", 
+      "<%= tut.course.name %>", 
+      "Tutorial" 
+    );
+  <% end %>
+
+<% end %>

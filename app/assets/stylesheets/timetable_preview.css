@@ -41,6 +41,10 @@
 	background-color: #e5e5e5;
 }
 
+.period span {
+	display: block;
+}
+
 .period.t030 { width: 100%; }
 .period.t100 { width: 200%; }
 .period.t130 { width: 300%; }
