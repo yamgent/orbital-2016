@@ -4,6 +4,8 @@ class CreateUserTutorialSelections < ActiveRecord::Migration
       t.belongs_to :user, index: true
       t.belongs_to :tutorial, index: true
 
+      t.integer :rank
+
       t.timestamps null: false
     end
   end

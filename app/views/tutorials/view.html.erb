@@ -42,22 +42,20 @@
           </tr>
         </thead>
         <tbody>
-          <% row = 0 %>
-
           <% if @user.tutorials.size == 0 %>
           <tr>
             <td colspan="5">You did not select any preferences yet.</td>
           </tr>
           <% end %>
 
-          <% @user.tutorials.each do |tut| %>
+          <% @user.user_tutorial_selections.sort_by(&:rank).each do |selection| %>
           <tr>
-            <% row = row + 1 %>
-            <th scope="row"><%= row %></th>
-            <td><%= tut.course.code %></td>
+            <th scope="row"><%= selection.rank %></th>
+            <td><%= selection.tutorial.course.code %></td>
             <td>Tutorial</td>
-            <td><%= getDay(tut.day) %></td>
-            <td><%= getHourAndMin(tut.start_time) %> - <%= getHourAndMin(tut.end_time) %></td>
+            <td><%= getDay(selection.tutorial.day) %></td>
+            <td><%= getHourAndMin(selection.tutorial.start_time) %>
+                  - <%= getHourAndMin(selection.tutorial.end_time) %></td>
           </tr>
           <% end %>
         </tbody>
@@ -75,13 +73,13 @@
   var timetable = GetTimetableInstance();
 
   <% @user.tutorials.each do |tut| %>
-    timetable.addPeriod( 
-      <%= tut.day %>, 
-      <%= getHourAndMinAsInt(tut.start_time) %>, 
-      <%= getHourAndMinAsInt(tut.end_time) %>, 
-      "<%= tut.course.code %>", 
-      "<%= tut.course.name %>", 
-      "Tutorial" 
+    timetable.addPeriod(
+      <%= tut.day %>,
+      <%= getHourAndMinAsInt(tut.start_time) %>,
+      <%= getHourAndMinAsInt(tut.end_time) %>,
+      "<%= tut.course.code %>",
+      "<%= tut.course.name %>",
+      "Tutorial"
     );
   <% end %>
 
