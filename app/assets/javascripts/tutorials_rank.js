@@ -1,5 +1,8 @@
 function refresh_rank()
 {
+  // to reset the ranks when we are done
+  // sorting
+  
   $("#tutorial-list tr").each(function() {
       rank = $(this).parent().children().index($(this)) + 1;
       $(this).find('[scope=row]').html(rank);
@@ -13,7 +16,7 @@ $(document).ready(function()
     // ourselves
     refresh_rank();
 
-    $("#tutorial-list tbody").sortable({stop: function(){
+    $("#tutorial-list tbody").sortable({stop: function() {
       refresh_rank();
     }});
 });
