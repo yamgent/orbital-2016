@@ -22,21 +22,16 @@
         </thead>
 
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>ABC123</td>
+          <% @user.user_tutorial_selections.sort_by(&:rank).each do |selection| %>
+          <tr tutorialid="<%= selection.tutorial.id %>">
+            <th scope="row">###</th>
+            <td><%= selection.tutorial.course.code %></td>
             <td>Tutorial</td>
-            <td>Monday</td>
-            <td>09:00 - 11:00</td>
+            <td><%= getDay(selection.tutorial.day) %></td>
+            <td><%= getHourAndMin(selection.tutorial.start_time) %>
+                  - <%= getHourAndMin(selection.tutorial.end_time) %></td>
           </tr>
-
-          <tr>
-            <th scope="row">1</th>
-            <td>ABC123</td>
-            <td>Tutorial</td>
-            <td>Tuesday</td>
-            <td>09:00 - 11:00</td>
-          </tr>
+          <% end %>
         </tbody>
       </table>
     </div>
