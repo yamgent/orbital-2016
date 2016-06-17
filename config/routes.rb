@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   get 'tutorials/rank'
 
+  post 'tutorials/rank_save', to: 'tutorials#rank_save'
+
   get 'admin/index'
 
   get 'sessions/new'

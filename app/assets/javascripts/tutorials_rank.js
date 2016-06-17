@@ -3,14 +3,28 @@ function refresh_rank()
   // to reset the ranks when we are done
   // sorting
 
+  // this will also update the hidden field
+  // called "preferences" for submission later
+
+  var preferences = "";
+
   // for each item in the list
   $("#tutorial-list tr").each(function() {
       // get the rank number
       rank = $(this).parent().children().index($(this)) + 1;
-
       // modify the content to reflect the number
       $(this).find('[scope=row]').html(rank);
+
+      // get selection_id
+      selection_id = $(this).attr("selectionid");
+
+      // append it to the hidden field
+      if (selection_id)
+        preferences += selection_id + "_";
   });
+
+  // update the hidden field
+  $("#preferences").val(preferences);
 }
 
 $(document).ready(function()

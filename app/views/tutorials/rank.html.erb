@@ -4,7 +4,10 @@
 
   <div class="row">
     <p>Rank your preferences.
-      <a href="save" class="btn btn-primary">Save</a>
+      <%= form_tag('rank_save', method: :post) do %>
+          <%= hidden_field_tag 'preferences' %>
+          <%= submit_tag "Save", id: "save", class:"btn btn-primary" %>
+      <% end %>
     </p>
   </div>
 
@@ -23,7 +26,7 @@
 
         <tbody>
           <% @user.user_tutorial_selections.sort_by(&:rank).each do |selection| %>
-          <tr tutorialid="<%= selection.tutorial.id %>">
+          <tr selectionid="<%= selection.id %>">
             <th scope="row">###</th>
             <td><%= selection.tutorial.course.code %></td>
             <td>Tutorial</td>
