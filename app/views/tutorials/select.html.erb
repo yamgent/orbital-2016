@@ -20,60 +20,24 @@
 
   <div class="row">
     <div class="col-md-6">
-      <h2>ABC123 Tutorials</h2>
-
+      <% @user.courses.each do |c| %>
+      <h2><%= c.name %></h2>
       <div class="card-columns">
-
-        <div class="card text-xs-center">
+        <% c.tutorials.each do |tut| %>
+        <div id="card-<%= tut.id %>" class="card text-xs-center">
           <div class="card-block">
             <blockquote class="card-blockquote">
-              <p>Monday 17:00 - 19:00</p>
+              <p>
+              <%= getDay(tut.day) %> 
+              <%= getHourAndMin(tut.start_time) %> - 
+              <%= getHourAndMin(tut.end_time) %>
+              </p>
             </blockquote>
           </div>
         </div>
-
-        <div class="card text-xs-center">
-          <div class="card-block">
-            <blockquote class="card-blockquote">
-              <p>Tuesday 17:00 - 19:00</p>
-            </blockquote>
-          </div>
-        </div>
-
-        <div class="card text-xs-center">
-          <div class="card-block">
-            <blockquote class="card-blockquote">
-              <p>Wednesday 17:00 - 19:00</p>
-            </blockquote>
-          </div>
-        </div>
-
-        <div class="card text-xs-center">
-          <div class="card-block">
-            <blockquote class="card-blockquote">
-              <p>Thursday 09:00 - 11:00</p>
-            </blockquote>
-          </div>
-        </div>
-
-        <div class="card text-xs-center">
-          <div class="card-block">
-            <blockquote class="card-blockquote">
-              <p>Thursday 17:00 - 19:00</p>
-              <footer>[Lecture Clashes!]</footer>
-            </blockquote>
-          </div>
-        </div>
-
-        <div class="card text-xs-center card-success card-inverse">
-          <div class="card-block">
-            <blockquote class="card-blockquote">
-              <p>Friday 17:00 - 19:00</p>
-            </blockquote>
-          </div>
-        </div>
-
+        <% end %>
       </div>
+      <% end %>
     </div>
 
     <div class="col-md-6">
@@ -81,4 +45,40 @@
       <%= render 'layouts/timetable_preview' %>
     </div>
   </div>
+
 </div>
+
+<%= javascript_tag do %>
+
+  //
+  // init all possible tutorials
+  //
+  <% @user.courses.each do |c| %>
+    <% c.tutorials.each do |tut| %>
+
+      // save the id into the element
+      $("#card-<%= tut.id %>").data("periodId", <%= tut.id %>);
+
+      TimetablePreview().initPeriod(
+        <%= tut.id %>,
+        <%= tut.day %>,
+        <%= getHourAndMinAsInt(tut.start_time) %>,
+        <%= getHourAndMinAsInt(tut.end_time) %>,
+        "<%= c.code %>",
+        "<%= c.name %>",
+        "Tutorial"
+      );
+
+    <% end %>
+  <% end %>
+  
+  //
+  // activate current selections
+  //
+  $(function() {
+    <% @user.tutorials.each do |tut| %>
+      $("#card-<%= tut.id %>").trigger("click");
+    <% end %>
+  });
+
+<% end %>

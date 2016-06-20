@@ -22,37 +22,6 @@
 	</tbody>
 </table>
 
-<%= javascript_tag do %>
-
-	function GetTimetableInstance() {
-
-		if (!(this instanceof GetTimetableInstance)){
-			return new GetTimetableInstance();
-		}
-
-		var days = [ "sun", "mon", "tue", "wed", "thu", "fri", "sat" ];
-		var $timetable = $( "#timetable-preview" );
-
-		this.addPeriod = function( day, startTime, endTime, code, name, type ) {
-			$timetable.find( "#" + days[day] + "-" + startTime ).append(
-				$( "<div/>" )
-				.addClass( "period color-1 t" + (endTime - startTime) )
-				.append( $( "<span/>" ).text( code ) )
-				.append( $( "<span/>" ).text( name ) )
-				.append( $( "<span/>" ).text( type ) )
-			);
-			return this;
-		};
-
-		this.removePeriod = function( day, startTime ) {
-			$timetable.find( "#" + days[day] + "-" + startTime ).empty();
-			return this;
-		};
-
-		this.removeAllPeriods = function() {
-			return this;
-		};
-
-	}
-
+<% content_for(:body_attributes) do %>
+	data-no-turbolink="true"
 <% end %>

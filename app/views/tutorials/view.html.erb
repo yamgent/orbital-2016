@@ -70,10 +70,9 @@
 
 <%= javascript_tag do %>
 
-  var timetable = GetTimetableInstance();
-
   <% @user.tutorials.each do |tut| %>
-    timetable.addPeriod(
+    TimetablePreview().initPeriod(
+      <%= tut.id %>,
       <%= tut.day %>,
       <%= getHourAndMinAsInt(tut.start_time) %>,
       <%= getHourAndMinAsInt(tut.end_time) %>,
@@ -82,5 +81,7 @@
       "Tutorial"
     );
   <% end %>
-
+  
+  TimetablePreview().showAllPeriods();
+  
 <% end %>

@@ -10,7 +10,10 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body 
+  <% if content_for?(:body_attributes) %>
+    <%= yield(:body_attributes) %>
+  <% end %>>
 <%= render 'layouts/banner' unless session[:user_id] == nil %>
 <%= yield %>
 </body>
