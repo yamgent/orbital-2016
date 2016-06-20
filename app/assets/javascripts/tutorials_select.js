@@ -6,18 +6,20 @@ $(document).ready(function()
 
     // this will also update the hidden field
     // called "preferences" for submission later
-    var preferences = $("#preferences").val();
+    var preferences = $("#preferences_select").val();
 
-    if ($(this).hasClass("card-success")) {
+    if ($(this).data("selected") == 1) {
+      $(this).data("selected", 0);
       TimetablePreview().hidePeriodById($(this).data("periodId"));
-      preferences = preferences.replace($(this).data("periodId") + "_", "");
+      preferences = preferences.replace("_" + $(this).data("periodId") + "_", "_");
     } else {
+      $(this).data("selected", 1);
       TimetablePreview().showPeriodById($(this).data("periodId"));
       preferences = preferences.concat($(this).data("periodId") + "_");
     }
 
     // update the hidden field
-    $("#preferences").val(preferences);
+    $("#preferences_select").val(preferences);
     
     $(this).toggleClass("card-inverse card-success", 200);
   });
