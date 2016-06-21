@@ -21,9 +21,13 @@ var Timetable = function()
 				$("<div/>")
 				.attr("id", "period-" + id)
 				.addClass("period t" + (endTime - startTime))
-				.append($("<span/>").text(code))
-				.append($("<span/>").text(name))
-				.append($("<span/>").text(type))
+				.append(
+					$("<div/>")
+					.addClass("inner-content")
+					.append($("<span/>").text(code))
+					.append($("<span/>").text(name))
+					.append($("<span/>").text(type))
+				)
 			);
 		}
 		return this;

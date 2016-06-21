@@ -25,7 +25,7 @@
   <div class="row">
     <div id="tutorial-options" class="col-md-6">
       <% @user.courses.each do |c| %>
-      <h2><%= c.name %></h2>
+      <h2><%= c.code %> - <%= c.name %></h2>
       <div class="card-columns">
         <% c.tutorials.each do |tut| %>
         <div tutorialid="<%= tut.id %>" class="card text-xs-center">
