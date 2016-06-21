@@ -1,0 +1,17 @@
+<%= javascript_tag do %>
+
+  <% @user.courses.each do |c| %>
+    <% c.lectures.each do |lec|  %>
+      Timetable().initPeriod(
+        "lecture-<%= lec.id %>",
+        <%= lec.day %>,
+        <%= getHourAndMinAsInt(lec.start_time) %>,
+        <%= getHourAndMinAsInt(lec.end_time) %>,
+        "<%= c.code %>",
+        "<%= c.name %>",
+        "Lecture"
+      );
+    <% end %>
+  <% end %>
+
+<% end %>
