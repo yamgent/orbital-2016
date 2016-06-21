@@ -51,6 +51,19 @@ var TimetablePreview = function()
 		return this;
 	};
 
+	this.toggleShowPeriodById = function(id) 
+	{
+		if (_periods[id].isShown == false)
+		{
+			showPeriodById(id);
+		}
+		else
+		{
+			hidePeriodById(id);
+		}
+		return this;
+	};
+
 	this.showAllPeriods = function() 
 	{
 		for (period in _periods)

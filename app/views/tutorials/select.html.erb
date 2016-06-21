@@ -3,10 +3,12 @@
 
   <div class="row">
     <div class="col-md-6">
-      <p>Select slots that you wish to ballot.
-        <%= hidden_field_tag 'preferences_select', '_' %>
-        <a href="rank" class="btn btn-primary">Next</a>
-      </p>
+      <%= form_tag('select_save', method: :post) do %>
+        <p>Select slots that you wish to ballot.
+        <%= hidden_field_tag 'preference_changes', '_' %>
+        <%= submit_tag "Next", id: "save", class:"btn btn-primary" %>
+        </p>
+      <% end %>
     </div>
 
     <div class="col-md-6">
@@ -74,11 +76,12 @@
   <% end %>
   
   //
-  // activate current selections
+  // activate initial selections
   //
   $(function() {
     <% @user.tutorials.each do |tut| %>
-      $("#card-<%= tut.id %>").trigger("click");
+      TimetablePreview().toggleShowPeriodById(<%= tut.id %>);
+      $("#card-<%= tut.id %>").toggleClass("card-inverse card-success", 200);
     <% end %>
   });
 

@@ -3,6 +3,8 @@ Rails.application.routes.draw do
 
   get 'tutorials/select'
 
+  post 'tutorials/select_save', to: 'tutorials#select_save'
+
   get 'tutorials/rank'
 
   post 'tutorials/rank_save', to: 'tutorials#rank_save'
