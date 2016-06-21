@@ -20,8 +20,7 @@ $(document).ready(function()
     $("#preference_changes").val(preferences);
     
     // toggle visual elements
-    $(this).toggleClass("card-inverse card-success", 200);
+    $(this).toggleClass("card-inverse card-success", 100);
     TimetablePreview().toggleShowPeriodById($(this).data("periodId"));
   });
-
 });

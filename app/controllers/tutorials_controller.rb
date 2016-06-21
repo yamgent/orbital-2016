@@ -14,7 +14,6 @@ class TutorialsController < ApplicationController
   def select_save
     # process POST params
     pref = params[:preference_changes].split("_")
-
     pref.each do |tut_id|
 
       if tut_id == ""
@@ -22,7 +21,6 @@ class TutorialsController < ApplicationController
       end
 
       record = UserTutorialSelection.find_by(user_id: @user.id, tutorial_id: tut_id)
-
       # add record if not found
       if record == nil
         record = UserTutorialSelection.new(

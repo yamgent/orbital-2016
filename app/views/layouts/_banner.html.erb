@@ -2,7 +2,7 @@
 	<button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">
 		&#9776;
 	</button>
-	<%= link_to image_tag("logo.png", :size => "68x23", :alt => "CORS logo"), root_path %>
+	<%= link_to image_tag("logo.png", :size => "131x60", :alt => "CORS logo"), root_path %>
 
 	<div class="pull-xs-right">
 		<span class="user-id"><%= session[:user_matricNo] %></span>
@@ -13,9 +13,27 @@
 
 	<div class="collapse navbar-toggleable-xs" id="exCollapsingNavbar2">
 		<ul class="nav navbar-nav">
-			<li class="nav-item active"><%= link_to "Major & Minor", {:controller => "tutorials", :action => "view"}, :class => "nav-link" %></li>
-			<li class="nav-item"><%= link_to "Modules", {:controller => "tutorials", :action => "select"}, :class => "nav-link" %></li>
-			<li class="nav-item"><%= link_to "Tutorials", {:controller => "tutorials", :action => "rank"}, :class => "nav-link" %></li>
+			<li class="nav-item">
+				<%= link_to "Major & Minor", 
+					{:controller => "tutorials", :action => "view"}, 
+					:class => "nav-link", 
+					:data => { :no_turbolink => true } 
+				%>
+			</li>
+			<li class="nav-item">
+				<%= link_to "Modules", 
+					{:controller => "tutorials", :action => "view"}, 
+					:class => "nav-link", 
+					:data => { :no_turbolink => true } 
+				%>
+			</li>
+			<li class="nav-item <%= 'active' if params[:controller] == "tutorials" %>">
+				<%= link_to "Tutorials", 
+					{:controller => "tutorials", :action => "view"}, 
+					:class => "nav-link", 
+					:data => { :no_turbolink => true } 
+				%>
+			</li>
 		</ul>
 	</div>
 </nav>
