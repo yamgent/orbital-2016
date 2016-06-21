@@ -1,0 +1,15 @@
+<%= javascript_tag do %>
+
+  <% @user.tutorials.each do |tut| %>
+    Timetable().initPeriod(
+      <%= tut.id %>,
+      <%= tut.day %>,
+      <%= getHourAndMinAsInt(tut.start_time) %>,
+      <%= getHourAndMinAsInt(tut.end_time) %>,
+      "<%= tut.course.code %>",
+      "<%= tut.course.name %>",
+      "Tutorial"
+    );
+  <% end %>
+  
+<% end %>

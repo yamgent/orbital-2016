@@ -1,16 +1,16 @@
-#timetable-preview {
+#timetable {
 	width: 100%;
 	table-layout: fixed;
 	font-size: .5em;
 	border-collapse: separate;
 }
 
-#timetable-preview thead th div {
+#timetable thead th div {
 	text-align: right;
 	margin-right: -1.2em;
 }
 
-#timetable-preview tbody th div {
+#timetable tbody th div {
 	float: right;
 	margin-right: 1.5em;
 	line-height: 1.5em;
@@ -19,16 +19,16 @@
 	width: 0;
 }
 
-#timetable-preview tbody th,
-#timetable-preview tbody td:nth-of-type(2n) {
+#timetable tbody th,
+#timetable tbody td:nth-of-type(2n) {
 	border-right: 1px solid #e5e5e5;
 }
 
-#timetable-preview thead th[colspan="2"] {
+#timetable thead th[colspan="2"] {
 	border-bottom: 1px solid #e5e5e5;
 }
 
-#timetable-preview tbody td {
+#timetable tbody td {
 	border-bottom: 1px solid #e5e5e5;
 	height: 10em;
 	padding: 0;

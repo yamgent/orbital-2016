@@ -27,7 +27,7 @@
       <h2><%= c.name %></h2>
       <div class="card-columns">
         <% c.tutorials.each do |tut| %>
-        <div id="card-<%= tut.id %>" class="card text-xs-center">
+        <div id="<%= tut.id %>" class="card text-xs-center">
           <div class="card-block">
             <blockquote class="card-blockquote">
               <p>
@@ -45,44 +45,20 @@
 
     <div class="col-md-6">
       <h3>Timetable Preview</h3>
-      <%= render 'layouts/timetable_preview' %>
+      <%= render 'layouts/timetable' %>
+      <%= render 'layouts/timetable-js/init_user_courses' %>
+      <%= javascript_tag do %> Timetable().showAllPeriods(); <% end %>
+      <%= render 'layouts/timetable-js/init_selectable_tutorials' %>
     </div>
-  </div>
 
+  </div>
 </div>
 
-<%= javascript_tag do %>
-
-  //
-  // init all possible tutorials
-  //
-  <% @user.courses.each do |c| %>
-    <% c.tutorials.each do |tut| %>
-
-      // save the id into the element
-      $("#card-<%= tut.id %>").data("periodId", <%= tut.id %>);
-
-      TimetablePreview().initPeriod(
-        <%= tut.id %>,
-        <%= tut.day %>,
-        <%= getHourAndMinAsInt(tut.start_time) %>,
-        <%= getHourAndMinAsInt(tut.end_time) %>,
-        "<%= c.code %>",
-        "<%= c.name %>",
-        "Tutorial"
-      );
-
-    <% end %>
-  <% end %>
-  
-  //
-  // activate initial selections
-  //
+<%= javascript_tag do %> // show initial selections
   $(function() {
     <% @user.tutorials.each do |tut| %>
-      TimetablePreview().toggleShowPeriodById(<%= tut.id %>);
-      $("#card-<%= tut.id %>").toggleClass("card-inverse card-success", 200);
+      $(".card#<%= tut.id %>").addClass("card-inverse card-success");
+      Timetable().showPeriodById(<%= tut.id %>);
     <% end %>
   });
-
 <% end %>

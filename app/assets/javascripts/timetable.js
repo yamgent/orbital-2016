@@ -1,13 +1,13 @@
-var TimetablePreview = function() 
+var Timetable = function() 
 {
-	if (TimetablePreview.prototype._singletonInstance) 
+	if (Timetable.prototype._singletonInstance) 
 	{
-		return TimetablePreview.prototype._singletonInstance;
+		return Timetable.prototype._singletonInstance;
 	}
-	TimetablePreview.prototype._singletonInstance = this;
+	Timetable.prototype._singletonInstance = this;
 
 	var _days = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
-	var _timetable = $("#timetable-preview");
+	var _timetable = $("#timetable");
 	var _periods = new Array();
 
 

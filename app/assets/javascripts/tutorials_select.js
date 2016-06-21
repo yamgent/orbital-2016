@@ -10,17 +10,17 @@ $(document).ready(function()
     if ($(this).data("isPreferenceChanged") == 1) 
     {
       $(this).data("isPreferenceChanged", 0);
-      preferences = preferences.replace("_" + $(this).data("periodId") + "_", "_");
+      preferences = preferences.replace("_" + $(this).attr('id') + "_", "_");
     } 
     else 
     {
       $(this).data("isPreferenceChanged", 1);
-      preferences = preferences.concat($(this).data("periodId") + "_");
+      preferences = preferences.concat($(this).attr('id') + "_");
     }
     $("#preference_changes").val(preferences);
     
     // toggle visual elements
     $(this).toggleClass("card-inverse card-success", 100);
-    TimetablePreview().toggleShowPeriodById($(this).data("periodId"));
+    Timetable().toggleShowPeriodById($(this).attr('id'));
   });
 });
