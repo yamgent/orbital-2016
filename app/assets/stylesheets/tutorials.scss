@@ -10,3 +10,13 @@
   background: rgba(102, 0, 255, 0.5);
   color: #ffffff;
 }
+
+#tutorial-options .card {
+  cursor: pointer;
+}
+
+#tutorial-options .card.selected {
+  background-color: #5cb85c;
+  border-color: #5cb85c;
+  color: #ffffff;
+}

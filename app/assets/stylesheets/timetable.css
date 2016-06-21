@@ -34,23 +34,38 @@
 	padding: 0;
 }
 
-.period {
+#timetable .period {
 	position: relative;
 	height: 100%;
 	border-radius: 4px;
 	background-color: #e5e5e5;
 }
 
-.period span {
+#timetable .period span {
 	display: block;
 }
 
-.period.t030 { width: 100%; }
-.period.t100 { width: 200%; }
-.period.t130 { width: 300%; }
-.period.t200 { width: 400%; }
-.period.t230 { width: 500%; }
-.period.t300 { width: 600%; }
-.period.color-1 { background-color: #e6e6ff; }
-.period.color-2 { background-color: #ffe6ff; }
-.period.color-3 { background-color: #ffe6e6; }
+#timetable .period.t030 { width: 100%; }
+#timetable .period.t100 { width: 200%; }
+#timetable .period.t130 { width: 300%; }
+#timetable .period.t200 { width: 400%; }
+#timetable .period.t230 { width: 500%; }
+#timetable .period.t300 { width: 600%; }
+
+#timetable .period.style-faded {
+	opacity: 0.5;
+	filter: alpha(opacity=50);
+}
+#timetable .period.style-hidden {
+	visibility: hidden;
+}
+#timetable .period.style-selected {
+	visibility: visible;
+	opacity: 1.0;
+	filter: alpha(opacity=100);
+}
+#timetable .period.style-highlight {
+	visibility: visible;
+	background-color: #5bc0de;
+	color: #ffffff;
+}

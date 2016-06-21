@@ -1,7 +1,7 @@
 <%= javascript_tag do %>
 
   <% @user.tutorials.each do |tut| %>
-    Timetable().initPeriod(
+    Timetable().addPeriod(
       <%= tut.id %>,
       <%= tut.day %>,
       <%= getHourAndMinAsInt(tut.start_time) %>,
@@ -9,7 +9,7 @@
       "<%= tut.course.code %>",
       "<%= tut.course.name %>",
       "Tutorial"
-    );
+    ).togglePeriodStyle(<%= tut.id %>, "selected");
   <% end %>
 
 <% end %>

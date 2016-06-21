@@ -1,4 +1,5 @@
 <div class="container">
+  <%= javascript_include_tag 'tutorials_select' %>
   <h1>Tutorials Selection (Step 1 of 2)</h1>
 
   <div class="row">
@@ -22,12 +23,12 @@
   </div>
 
   <div class="row">
-    <div class="col-md-6">
+    <div id="tutorial-options" class="col-md-6">
       <% @user.courses.each do |c| %>
       <h2><%= c.name %></h2>
       <div class="card-columns">
         <% c.tutorials.each do |tut| %>
-        <div id="<%= tut.id %>" class="card text-xs-center">
+        <div tutorialid="<%= tut.id %>" class="card text-xs-center">
           <div class="card-block">
             <blockquote class="card-blockquote">
               <p>
@@ -46,9 +47,9 @@
     <div class="col-md-6">
       <h3>Timetable Preview</h3>
       <%= render 'layouts/timetable' %>
-      <%= render 'layouts/timetable-js/init_user_lectures' %>
-      <%= javascript_tag do %> Timetable().showAllPeriods(); <% end %>
-      <%= render 'layouts/timetable-js/init_selectable_tutorials' %>
+      <%= render 'layouts/timetable-js/add_user_lectures' %>
+      <%= render 'layouts/timetable-js/add_user_tutorials' %>
+      <%= render 'layouts/timetable-js/add_selectable_tutorials' %>
     </div>
 
   </div>
@@ -57,8 +58,7 @@
 <%= javascript_tag do %> // show initial selections
   $(function() {
     <% @user.tutorials.each do |tut| %>
-      $(".card#<%= tut.id %>").addClass("card-inverse card-success");
-      Timetable().showPeriodById(<%= tut.id %>);
+      $(".card[tutorialid='<%= tut.id %>']").addClass("selected");
     <% end %>
   });
 <% end %>

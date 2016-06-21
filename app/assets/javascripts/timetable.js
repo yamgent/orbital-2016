@@ -8,76 +8,35 @@ var Timetable = function()
 
 	var _days = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
 	var _timetable = $("#timetable");
-	var _periods = new Array();
+	var _exists = new Array();
 
 
-	this.initPeriod = function(id, day, startTime, endTime, code, name, type) 
+	this.addPeriod = function(id, day, startTime, endTime, code, name, type) 
 	{
-		_periods[id] = {"day" : day, 
-						"startTime" : startTime, 
-						"endTime" : endTime, 
-						"code" : code, 
-						"name" : name, 
-						"type" : type,
-						"isShown" : false
-						};
-		return this;
-	};
-
-	this.showPeriodById = function(id) 
-	{
-		if (_periods[id].isShown == false)
+		if (_exists[id] != true)
 		{
-			_timetable.find("#" + _days[_periods[id].day] + "-" + _periods[id].startTime).append(
+			_exists[id] = true;
+
+			_timetable.find("#" + _days[day] + "-" + startTime).append(
 				$("<div/>")
 				.attr("id", "period-" + id)
-				.addClass("period t" + (_periods[id].endTime - _periods[id].startTime))
-				.append($("<span/>").text(_periods[id].code))
-				.append($("<span/>").text(_periods[id].name))
-				.append($("<span/>").text(_periods[id].type))
+				.addClass("period t" + (endTime - startTime))
+				.append($("<span/>").text(code))
+				.append($("<span/>").text(name))
+				.append($("<span/>").text(type))
 			);
-			_periods[id].isShown = true;
 		}
 		return this;
 	};
 
-	this.hidePeriodById = function(id) 
+	this.togglePeriodStyle = function(id, style, duration) 
 	{
-		if (_periods[id].isShown == true)
+		if (_exists[id] == true)
 		{
-			_timetable.find("#period-" + id).remove();
-			_periods[id].isShown = false;
-		}
-		return this;
-	};
-
-	this.toggleShowPeriodById = function(id) 
-	{
-		if (_periods[id].isShown == false)
-		{
-			showPeriodById(id);
-		}
-		else
-		{
-			hidePeriodById(id);
-		}
-		return this;
-	};
-
-	this.showAllPeriods = function() 
-	{
-		for (period in _periods)
-		{
-			showPeriodById(period);
-		}
-		return this;
-	};
-
-	this.hideAllPeriods = function() 
-	{
-		for (period in _periods)
-		{
-			hidePeriodById(period);
+			_timetable.find("#period-" + id).stop(true, true).toggleClass(
+				"style-" + style, 
+				typeof duration == "undefined" ? 0 : duration
+			);
 		}
 		return this;
 	};

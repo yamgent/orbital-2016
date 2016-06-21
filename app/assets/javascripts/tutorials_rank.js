@@ -39,4 +39,13 @@ $(document).ready(function()
     $("#tutorial-list tbody").sortable({stop: function() {
       refresh_rank();
     }});
+
+    $("#tutorial-list tbody tr").on({
+      mouseenter : function() {
+        Timetable().togglePeriodStyle($(this).attr("tutorialid"), "highlight", 200);
+      },
+      mouseleave : function() {
+        Timetable().togglePeriodStyle($(this).attr("tutorialid"), "highlight", 200);
+      }
+    });
 });

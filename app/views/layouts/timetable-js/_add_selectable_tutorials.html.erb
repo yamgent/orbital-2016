@@ -2,7 +2,7 @@
 
   <% @user.courses.each do |c| %>
     <% c.tutorials.each do |tut| %>
-      Timetable().initPeriod(
+      Timetable().addPeriod(
         <%= tut.id %>,
         <%= tut.day %>,
         <%= getHourAndMinAsInt(tut.start_time) %>,
@@ -10,7 +10,7 @@
         "<%= c.code %>",
         "<%= c.name %>",
         "Tutorial"
-      );
+      ).togglePeriodStyle(<%= tut.id %>, "faded");
     <% end %>
   <% end %>
 
