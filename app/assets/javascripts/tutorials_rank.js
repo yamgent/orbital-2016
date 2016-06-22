@@ -48,4 +48,16 @@ $(document).ready(function()
         Timetable().togglePeriodStyle($(this).attr("tutorialid"), "highlight", 200);
       }
     });
+
+    var changesConfirmed = false;
+
+    $("#save").click(function(){
+      changesConfirmed = true;
+    });
+
+    $(window).bind('beforeunload', function(){
+      if (changesConfirmed === false)
+        // TODO: custom message doesn't work on Chrome??
+        return 'You have not confirm your rank selection!';
+    });
 });
