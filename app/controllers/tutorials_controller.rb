@@ -3,7 +3,7 @@ class TutorialsController < ApplicationController
 
   # The magic number for having no rank (if the user
   # selected the slot but did not rank them yet)
-  NO_RANK = 0
+  NO_RANK = 999
 
   def initUser
     @user = User.find_by(id: session[:user_id])
