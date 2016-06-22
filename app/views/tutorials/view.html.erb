@@ -61,13 +61,15 @@
           </tr>
           <% end %>
 
+          <% row = 1 %>
           <% @user.user_tutorial_selections.sort_by(&:rank).each do |selection| %>
           <tr>
             <th scope="row">
               <% if selection.rank == TutorialsController::NO_RANK %>
                 ???
               <% else %>
-                <%= selection.rank %>
+                <%= row %>
+                <% row = row + 1 %>
               <% end %>
             </th>
             <td><%= selection.tutorial.course.code %></td>
