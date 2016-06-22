@@ -1,6 +1,10 @@
 class TutorialsController < ApplicationController
   before_action :authorize, :initUser
 
+  # The magic number for having no rank (if the user
+  # selected the slot but did not rank them yet)
+  NO_RANK = 0
+
   def initUser
     @user = User.find_by(id: session[:user_id])
   end
@@ -24,9 +28,9 @@ class TutorialsController < ApplicationController
       # add record if not found
       if record == nil
         record = UserTutorialSelection.new(
-          user_id: @user.id, 
-          tutorial_id: tut_id, 
-          rank: 0, 
+          user_id: @user.id,
+          tutorial_id: tut_id,
+          rank: 0,
         )
         record.save
       else  # remove record if found

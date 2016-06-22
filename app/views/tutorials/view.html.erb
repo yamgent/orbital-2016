@@ -3,11 +3,23 @@
 
   <div class="row">
     <div class="col-md-6">
-      <p>Your selected tutorial selection:</p>
-
+      <p>Your selected tutorial selection:
       <%= button_to "Edit Selection", { action: "select" }, method: "get",
       class: "btn btn-primary" %>
-      <br>
+      </p>
+
+      <% if @user.user_tutorial_selections.exists?(rank: TutorialsController::NO_RANK) %>
+        <div class="alert alert-danger" role="alert">
+          <strong>You have not ranked some of your tutorial slots.</strong>
+          They appear as '???' rank for those slots.
+          If you do not rank them they will be randomly
+          ranked lower when the system closes.
+
+          <%= button_to "Rank Them Now", { action: "rank" }, method: "get",
+          class: "btn btn-danger" %>
+        </div>
+      <% end %>
+      <p>
 
       <!-- TODO: Remove this list when ready to add logic -->
       <ol>
@@ -50,7 +62,13 @@
 
           <% @user.user_tutorial_selections.sort_by(&:rank).each do |selection| %>
           <tr>
-            <th scope="row"><%= selection.rank %></th>
+            <th scope="row">
+              <% if selection.rank == TutorialsController::NO_RANK %>
+                ???
+              <% else %>
+                <%= selection.rank %>
+              <% end %>
+            </th>
             <td><%= selection.tutorial.course.code %></td>
             <td>Tutorial</td>
             <td><%= getDay(selection.tutorial.day) %></td>
