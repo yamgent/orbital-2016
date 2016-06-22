@@ -30,7 +30,7 @@ class TutorialsController < ApplicationController
         record = UserTutorialSelection.new(
           user_id: @user.id,
           tutorial_id: tut_id,
-          rank: 0,
+          rank: NO_RANK,
         )
         record.save
       else  # remove record if found
