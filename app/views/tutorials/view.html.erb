@@ -3,10 +3,11 @@
 
   <div class="row">
     <div class="col-md-6">
-      <p>Your selected tutorial selection:
-      <%= button_to "Edit Selection", { action: "select" }, method: "get",
-      class: "btn btn-primary" %>
-      </p>
+      <%= form_tag('select', method: :get) do %>
+        <p>Your selected tutorial selection:
+        <%= submit_tag "Edit Selection", class: "btn btn-primary" %>
+        </p>
+      <% end %>
 
       <% if @user.user_tutorial_selections.exists?(rank: TutorialsController::NO_RANK) %>
         <div class="alert alert-danger" role="alert">

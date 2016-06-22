@@ -3,16 +3,14 @@
   <h1>Tutorials Selection (Step 2 of 2)</h1>
 
   <div class="row">
-    <p>Rank your preferences.
-      <%= form_tag('rank_save', method: :post) do %>
-          <%= hidden_field_tag 'preferences' %>
-          <%= submit_tag "Save", id: "save", class:"btn btn-primary" %>
-      <% end %>
-    </p>
-  </div>
-
-  <div class="row">
     <div class="col-md-6">
+      <%= form_tag('rank_save', method: :post) do %>
+        <p>Rank your preferences.
+              <%= hidden_field_tag 'preferences' %>
+              <%= submit_tag "Save", id: "save", class:"btn btn-primary" %>
+        </p>
+      <% end %>
+
       <table class="table" id="tutorial-list">
         <thead>
           <tr>
