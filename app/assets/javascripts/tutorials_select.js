@@ -30,4 +30,15 @@ $(document).ready(function()
       Timetable().togglePeriodStyle($(this).attr("tutorialid"), "highlight", 200);
     }
   });
+
+  $("#clash-checkbox").on("change", function() 
+  {
+    $(".period").each(function() {
+      $(this).toggleClass("style-hidden", 0);
+    });
+    $(".period-filler").each(function() {
+      $(this).toggleClass("style-hidden", 0);
+    });
+  });
+
 });
