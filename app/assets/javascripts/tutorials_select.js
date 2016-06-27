@@ -5,7 +5,7 @@ $(document).ready(function()
     // get clashes id and disable the cards
     $(".period.lecture-clash").each(function() {
       var id = $(this).attr("id");
-      $(".card[tutorialid="+ id +"]").addClass("disabled");
+      $(".card[tutorialid="+ id +"]").addClass("disabled", 0);
     });
   });
 
@@ -44,7 +44,12 @@ $(document).ready(function()
     }
   });
 
-  $("#clash-checkbox").on("change", function() {
+  $("#clash-checkbox").on("change", function() 
+  {
+    // hide timetable clashes
     Timetable().toggleShowLectureClashes();
+
+    // hide clashing options
+    $(".card.disabled").toggleClass("hidden", 0);
   });
 });
