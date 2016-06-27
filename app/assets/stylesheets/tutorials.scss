@@ -20,3 +20,10 @@
   border-color: #5cb85c;
   color: #ffffff;
 }
+
+#tutorial-options .card.disabled {
+  background-color: #de5b5b;
+  border-color: #d80202;
+  color: #ffffff;
+  cursor: not-allowed;
+}

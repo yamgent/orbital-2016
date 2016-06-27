@@ -8,7 +8,7 @@
       <%= getHourAndMinAsInt(tut.end_time) %>,
       "<%= tut.course.code %>",
       "<%= tut.course.name %>",
-      "Tutorial"
+      PeriodTypes.TUTORIAL
     ).togglePeriodStyle(<%= tut.id %>, "selected");
   <% end %>
 

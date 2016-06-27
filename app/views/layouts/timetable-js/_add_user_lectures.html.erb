@@ -9,7 +9,7 @@
         <%= getHourAndMinAsInt(lec.end_time) %>,
         "<%= c.code %>",
         "<%= c.name %>",
-        "Lecture"
+        PeriodTypes.LECTURE
       ).togglePeriodStyle("lecture-<%= lec.id %>", "selected");
     <% end %>
   <% end %>

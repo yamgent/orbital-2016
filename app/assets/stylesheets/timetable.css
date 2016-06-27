@@ -4,12 +4,10 @@
 	font-size: .5em;
 	border-collapse: separate;
 }
-
 #timetable thead th div {
 	text-align: right;
 	margin-right: -1.2em;
 }
-
 #timetable tbody th div {
 	float: right;
 	margin-right: 1.5em;
@@ -18,45 +16,41 @@
     word-wrap: break-word;
 	width: 0;
 }
-
 #timetable tbody th,
 #timetable tbody td:nth-of-type(2n) {
 	border-right: 1px solid #e5e5e5;
 }
-
 #timetable thead th[colspan="2"] {
 	border-bottom: 1px solid #e5e5e5;
 }
-
 #timetable tbody td {
 	vertical-align: top;
 	border-bottom: 1px solid #e5e5e5;
 	height: 10em;
 	padding: 0;
 }
-
-#timetable .period-filler {
-	height: 10em;
-	width: 100%;
-}
-
 #timetable .period {
 	position: relative;
 	height: inherit;
 	border-radius: .25rem;
 	background-color: #e5e5e5;
-	box-shadow: 0px 0px 0px 1px #999999;
+	box-shadow: inset 0px 0px 0px 1px #999999;
+	opacity: 0.5;
+	filter: alpha(opacity=50);
 }
-
+#timetable .period-filler {
+	height: inherit;
+	width: 100%;
+}
 #timetable .period .inner-content {
 	padding: .5em;
 	font-size: 1.25em;
 }
-
 #timetable .period span {
 	display: block;
 }
 
+/* add more cases if required */
 #timetable .period.mins-30 { width: 100%; }
 #timetable .period.mins-60 { width: 200%; }
 #timetable .period.mins-90 { width: 300%; }
@@ -69,22 +63,32 @@
 #timetable .period.mins-300 { width: 1000%; }
 
 
-#timetable .style-hidden {
+/* 
+	custom styles 
+*/
+#timetable .period.style-hidden {
 	display: none;
 }
-#timetable .style-faded {
-	opacity: 0.5;
-	filter: alpha(opacity=50);
-}
-#timetable .style-selected {
-	display: block;
+#timetable .period.style-selected {
 	opacity: 1.0;
 	filter: alpha(opacity=100);
 }
-#timetable .style-highlight {
+#timetable .period.style-highlight {
 	background-color: #5bc0de;
-	box-shadow: 0px 0px 0px 1px #0275d8;
+	box-shadow: inset 0px 0px 0px 1px #0275d8;
 }
-#timetable .style-selected.style-highlight {
+#timetable .period.lecture-clash {
+	background-color: #de5b5b;
+	box-shadow: inset 0px 0px 0px 1px #d80202;
+}
+#timetable .period.lecture-clash.style-highlight {
+	opacity: 1.0;
+	filter: alpha(opacity=100);
 	color: #ffffff;
+}
+#timetable .period.style-selected.style-highlight {
+	color: #ffffff;
+}
+#timetable .period.lecture {
+	border-radius: 0;
 }

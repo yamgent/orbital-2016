@@ -9,8 +9,8 @@
         <%= getHourAndMinAsInt(tut.end_time) %>,
         "<%= c.code %>",
         "<%= c.name %>",
-        "Tutorial"
-      ).togglePeriodStyle(<%= tut.id %>, "faded");
+        PeriodTypes.TUTORIAL
+      );
     <% end %>
   <% end %>
   

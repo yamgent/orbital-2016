@@ -1,7 +1,20 @@
 $(document).ready(function()
 {
+  // nested ready() will enforce this to be called last
+  jQuery(document).ready(function(){
+    // get clashes id and disable the cards
+    $(".period.lecture-clash").each(function() {
+      var id = $(this).attr("id");
+      $(".card[tutorialid="+ id +"]").addClass("disabled");
+    });
+  });
+
   $(".card").on({
-    click : function() {
+    click : function() 
+    {
+      if ($(this).hasClass("disabled"))
+        return;
+
       // this will also update the hidden field
       // called "preferences" for submission later
       var preferences = $("#preference_changes").val();
@@ -31,14 +44,7 @@ $(document).ready(function()
     }
   });
 
-  $("#clash-checkbox").on("change", function() 
-  {
-    $(".period").each(function() {
-      $(this).toggleClass("style-hidden", 0);
-    });
-    $(".period-filler").each(function() {
-      $(this).toggleClass("style-hidden", 0);
-    });
+  $("#clash-checkbox").on("change", function() {
+    Timetable().toggleShowLectureClashes();
   });
-
 });

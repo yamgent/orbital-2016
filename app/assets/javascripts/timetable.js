@@ -1,3 +1,8 @@
+var PeriodTypes = {
+	TUTORIAL: 0,
+	LECTURE: 1,
+};
+
 var Timetable = function() 
 {
 	if (Timetable.prototype._singletonInstance) 
@@ -7,44 +12,59 @@ var Timetable = function()
 	Timetable.prototype._singletonInstance = this;
 
 	var _days = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
+	var _types = ["Tutorial", "Lecture"];
 	var _timetable = $("#timetable");
 	var _exists = new Array();
-	var _filled = new Array();
 	var _numOfPeriods = 0;
 
 
 /* public methods */
 
+	// add period if it has not been added.
+	// id must be unique.
 	this.addPeriod = function(id, day, startTime, endTime, code, name, type) 
 	{
 		if (_exists[id] != true)
 		{
 			var timeDiff = timeDiffInMins(endTime, startTime);
-
-			_timetable.find("#" + _days[day] + "-" + startTime).append(
-				$("<div/>")
+			var slot = _timetable.find("#" + _days[day] + "-" + startTime);
+			var newDiv = $("<div/>")
 				.attr("id", id)
 				.attr("duration-mins", timeDiff)
-				.addClass("period mins-" + timeDiff)
+				.addClass(
+					"period mins-" + timeDiff +
+					(type == PeriodTypes.LECTURE ? " lecture" : "")
+				)
 				.append(
 					$("<div/>")
 					.addClass("inner-content")
 					.append($("<span/>").text(code))
 					.append($("<span/>").text(name))
-					.append($("<span/>").text(type))
-				)
-			);
+					.append($("<span/>").text(_types[type]))
+				);
+
+			// find index to insert in descending order of duration
+			var i = 0;
+			var siblings = slot.siblings(".period");
+			if (siblings.size() > 0)
+			{
+				while(siblings.eq(i).attr("duration-mins") > timeDiff)
+					i++;
+			}
+
+			slot.appendAtIndex(i, newDiv);
 			_exists[id] = true;
 			_numOfPeriods++;
 		}
 		return this;
 	};
 
+	// toggle styles for "hidden", "selected", "highlight"
 	this.togglePeriodStyle = function(id, style, duration) 
 	{
 		if (_exists[id] == true)
 		{
-			_timetable.find("#" + id).stop(true, true).toggleClass(
+			_timetable.find(".period#"+ id).stop(true, true).toggleClass(
 				"style-" + style, 
 				typeof duration == "undefined" ? 0 : duration
 			);
@@ -52,22 +72,56 @@ var Timetable = function()
 		return this;
 	};
 
-	// finalize to correctly position the periods
-	this.finalizePeriods = function()
+	this.toggleShowLectureClashes = function()
 	{
-		// iterate multiple times,
-		// adding a row for those that cannot be fitted in
-		var rowIteration = 0;
-		var numOfFilled = 0;
+		// reconstruct the fillers since many cases to take care of
+		// *may be improved?*
+		_timetable.find(".lecture-clash").toggleClass("style-hidden", 0);
+		$(".period-filler").remove();
+		initPeriodFillers();
+		return this;
+	};
 
+	// finalize should be called after all periods are added
+	this.finalize = function()
+	{
+		initPeriodFillers();
+		initLectureClashes();
+		return this;
+	};
+
+
+/* private methods */
+
+	// add fillers to correctly position periods
+	var initPeriodFillers = function()
+	{
+		var filled = new Array();
+		var numOfFilled = 0;
+		var rowIteration = 0;
+
+		// iterate multiple times, adding periods
+		// that can be fitted for each row iteration
 		while(numOfFilled < _numOfPeriods)
 		{
-			_timetable.find(".period").each(function() {
-				if ($(this).siblings().size() > rowIteration)
-					return;		// collide, skip this iteration
-
+			_timetable.find(".period").each(function() 
+			{
 				var id = $(this).attr("id");
-				if (_filled[id] != true)
+
+				// do not fill if it is hidden
+				if ($(this).hasClass("style-hidden"))
+				{
+					filled[id] = true;
+					numOfFilled++;
+					return;
+				}
+
+				// skip if collide with current row's filler
+				if ($(this).siblings(".period-filler").size() > rowIteration)
+					return;
+
+				// ok, add fillers
+				if (filled[id] != true)
 				{
 					// dayAndTime = { day, time }
 					var dayAndTime = $(this).parent().attr("id").split("-", 2);
@@ -81,16 +135,41 @@ var Timetable = function()
 							$("<div/>")
 							.attr("id", id)
 							.addClass(
-								"period-filler" + 
-								($(this).hasClass("style-selected") ? " style-selected" : "")
+								"period-filler" +
+								($(this).hasClass("lecture") ? " lecture" : "")
 							)
 						);
 					}
-					_filled[id] = true;
+					filled[id] = true;
 					numOfFilled++;
 				}
 			});
 			rowIteration++;
+		}
+		return this;
+	};
+
+	// adds ".lecture-clash" to periods that clashes with lectures.
+	// periods must be filled for this method to work.
+	var initLectureClashes = function()
+	{
+		// get id of periods that clash with lectures
+		var lectureClashes = new Array();
+		$(".lecture").each(function() {
+			if ($(this).siblings().size() > 0)
+			{
+				$(this).siblings().each(function() {
+					var id = $(this).attr("id");
+					lectureClashes[id] = id;
+				});
+			}
+		});
+		// now add class to the clashing periods
+		for (id in lectureClashes)
+		{
+			$("#" + id).each(function() {
+				$(this).addClass("lecture-clash");
+			});
 		}
 		return this;
 	};
@@ -124,11 +203,10 @@ var Timetable = function()
 		return $(this).children().eq(i-1).after(content);
 	};
 
-
 	return this;
 }
 
-$(window).load(function() {
-	// must be called AFTER all periods have been added
-	Timetable().finalizePeriods();
+$(document).ready(function() {
+	// call finalize after all periods have been added
+	Timetable().finalize();
 });
