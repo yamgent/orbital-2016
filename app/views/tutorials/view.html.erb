@@ -3,6 +3,30 @@
 
   <div class="row">
     <div class="col-md-6">
+      <hr>
+      
+      <h2>Existing Tutorial Slots</h2>
+      <p>Tutorial slots that you have successfully balloted in the previous round:</p>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Module</th>
+            <th>Type</th>
+            <th>Day</th>
+            <th>Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td colspan="5">This is the first tutorial balloting round.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <hr>
+
+      <h2>Tutorial slots for current round</h2>
       <%= form_tag('select', method: :get) do %>
         <p>Your selected tutorial selection:
         <%= submit_tag "Edit Selection", class: "btn btn-primary" %>
@@ -20,29 +44,6 @@
           class: "btn btn-danger" %>
         </div>
       <% end %>
-      <p>
-
-      <!-- TODO: Remove this list when ready to add logic -->
-      <ol>
-        <% @user.courses.each do |c| %>
-        <li>
-          <%= c.name %>
-          <!-- Print out each individual lectures -->
-          <ul>
-            <% c.lectures.each do |lec|  %>
-            <li>
-              <%= getDay(lec.day) %>
-
-              <%= getHourAndMin(lec.start_time) %>
-              to
-              <%= getHourAndMin(lec.end_time) %>
-            </li>
-            <% end %>
-          </ul>
-        </li>
-        <% end %>
-      </ol>
-
 
       <table class="table">
         <thead>
