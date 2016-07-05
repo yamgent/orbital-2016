@@ -32,9 +32,11 @@
           <div class="card-block">
             <blockquote class="card-blockquote">
               <p>
-              <%= getDay(tut.day) %> 
-              <%= getHourAndMin(tut.start_time) %> - 
+              <%= getDay(tut.day) %>
+              <%= getHourAndMin(tut.start_time) %> -
               <%= getHourAndMin(tut.end_time) %>
+              <br>
+              (<%= tut.group_number %>)
               </p>
             </blockquote>
           </div>

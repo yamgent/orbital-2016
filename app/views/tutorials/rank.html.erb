@@ -27,7 +27,7 @@
           <tr selectionid="<%= selection.id %>" tutorialid="<%= selection.tutorial.id %>">
             <th scope="row">###</th>
             <td><%= selection.tutorial.course.code %></td>
-            <td>Tutorial</td>
+            <td>Tutorial (<%= selection.tutorial.group_number %>)</td>
             <td><%= getDay(selection.tutorial.day) %></td>
             <td><%= getHourAndMin(selection.tutorial.start_time) %>
                   - <%= getHourAndMin(selection.tutorial.end_time) %></td>
