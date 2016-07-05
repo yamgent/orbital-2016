@@ -1,7 +1,6 @@
 #timetable {
 	width: 100%;
 	table-layout: fixed;
-	font-size: .5em;
 	border-collapse: separate;
 }
 #timetable thead th div {
@@ -26,7 +25,6 @@
 #timetable tbody td {
 	vertical-align: top;
 	border-bottom: 1px solid #e5e5e5;
-	height: 10em;
 	padding: 0;
 }
 #timetable .period {
@@ -44,7 +42,8 @@
 }
 #timetable .period .inner-content {
 	padding: .5em;
-	font-size: 1.25em;
+	font-size: x-small;
+	overflow: hidden
 }
 #timetable .period span {
 	display: block;

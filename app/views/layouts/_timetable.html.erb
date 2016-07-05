@@ -1,18 +1,19 @@
 <table id="timetable">
 	<thead>
 		<tr>
-			<th colspan="1"><div>0800</div></th>
+			<th colspan="1"><div>8</div></th>
 			<% for i in 9..23 do %>
-				<th colspan="2"><div><%= sprintf('%02d', i) %>00</div></th>
+				<th colspan="2"><div><%= i %></div></th>
 			<% end %>
-			<th colspan="2"><div>0000</div></th>
+			<th colspan="2"><div></div></th>
 		</tr>
 	</thead>
-	
+
 	<tbody>
 		<% [ "sun", "mon", "tue", "wed", "thu", "fri", "sat" ].each do |day| %>
 			<tr>
-				<th><div><%= day %></div></th>
+				<!-- just use the first letter -->
+				<th><div><%= day[0] %></div></th>
 				<% for i in 8..23 do %>
 					<td id="<%= day %>-<%= i %>00"></td>
 					<td id="<%= day %>-<%= i %>30"></td>

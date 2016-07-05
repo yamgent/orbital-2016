@@ -3,16 +3,16 @@ var PeriodTypes = {
 	LECTURE: 1,
 };
 
-var Timetable = function() 
+var Timetable = function()
 {
-	if (Timetable.prototype._singletonInstance) 
+	if (Timetable.prototype._singletonInstance)
 	{
 		return Timetable.prototype._singletonInstance;
 	}
 	Timetable.prototype._singletonInstance = this;
 
 	var _days = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
-	var _types = ["Tutorial", "Lecture"];
+	var _types = ["TUT", "LEC"];
 	var _timetable = $("#timetable");
 	var _exists = new Array();
 	var _numOfPeriods = 0;
@@ -22,7 +22,7 @@ var Timetable = function()
 
 	// add period if it has not been added.
 	// id must be unique.
-	this.addPeriod = function(id, day, startTime, endTime, code, name, type) 
+	this.addPeriod = function(id, day, startTime, endTime, code, name, type)
 	{
 		if (_exists[id] != true)
 		{
@@ -39,7 +39,6 @@ var Timetable = function()
 					$("<div/>")
 					.addClass("inner-content")
 					.append($("<span/>").text(code))
-					.append($("<span/>").text(name))
 					.append($("<span/>").text(_types[type]))
 				);
 
@@ -60,12 +59,12 @@ var Timetable = function()
 	};
 
 	// toggle styles for "hidden", "selected", "highlight"
-	this.togglePeriodStyle = function(id, style, duration) 
+	this.togglePeriodStyle = function(id, style, duration)
 	{
 		if (_exists[id] == true)
 		{
 			_timetable.find(".period#"+ id).stop(true, true).toggleClass(
-				"style-" + style, 
+				"style-" + style,
 				typeof duration == "undefined" ? 0 : duration
 			);
 		}
@@ -104,7 +103,7 @@ var Timetable = function()
 		// that can be fitted for each row iteration
 		while(numOfFilled < _numOfPeriods)
 		{
-			_timetable.find(".period").each(function() 
+			_timetable.find(".period").each(function()
 			{
 				var id = $(this).attr("id");
 
