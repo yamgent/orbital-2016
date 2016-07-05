@@ -22,7 +22,7 @@ var Timetable = function()
 
 	// add period if it has not been added.
 	// id must be unique.
-	this.addPeriod = function(id, day, startTime, endTime, code, name, type)
+	this.addPeriod = function(id, day, startTime, endTime, code, name, type, groupNum)
 	{
 		if (_exists[id] != true)
 		{
@@ -31,7 +31,7 @@ var Timetable = function()
 			var newDiv = $("<div/>")
 				.attr("id", id)
 				.attr("duration-mins", timeDiff)
-				.attr("title", code + " - " + _types[type])
+				.attr("title", code + " - " + _types[type] + " (" + groupNum + ")")
 				.addClass(
 					"period mins-" + timeDiff +
 					(type == PeriodTypes.LECTURE ? " lecture" : "")
@@ -41,6 +41,7 @@ var Timetable = function()
 					.addClass("inner-content")
 					.append($("<span/>").text(code))
 					.append($("<span/>").text(_types[type]))
+					.append($("<span/>").text(groupNum))
 				);
 
 			// find index to insert in descending order of duration
