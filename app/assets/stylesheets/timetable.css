@@ -36,6 +36,9 @@
 	opacity: 0.5;
 	filter: alpha(opacity=50);
 }
+#timetable .lecture {
+	background-color: #f9bb7b;
+}
 #timetable .period-filler {
 	height: inherit;
 	width: 100%;
