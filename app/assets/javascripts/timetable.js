@@ -31,6 +31,7 @@ var Timetable = function()
 			var newDiv = $("<div/>")
 				.attr("id", id)
 				.attr("duration-mins", timeDiff)
+				.attr("title", code + " - " + _types[type])
 				.addClass(
 					"period mins-" + timeDiff +
 					(type == PeriodTypes.LECTURE ? " lecture" : "")
@@ -204,6 +205,9 @@ var Timetable = function()
 
 	return this;
 }
+
+// enable tooltips
+$(document).tooltip();
 
 $(document).ready(function() {
 	// call finalize after all periods have been added
