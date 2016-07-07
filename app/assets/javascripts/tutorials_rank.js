@@ -1,3 +1,12 @@
+function add_timetable_ranklabel()
+{
+  $("#tutorial-list tr").each(function() {
+    $("#timetable .period#" + $(this).attr("tutorialid")).prepend(
+      $("<span/>").addClass("label label-pill label-primary")
+    );
+  });
+}
+
 function refresh_rank()
 {
   // to reset the ranks when we are done
@@ -12,7 +21,9 @@ function refresh_rank()
   $("#tutorial-list tr").each(function() {
       // get the rank number
       rank = $(this).parent().children().index($(this)) + 1;
+
       // modify the content to reflect the number
+      $("#timetable .period#" + $(this).attr("tutorialid") + " .label").html(rank);
       $(this).find('[scope=row]').html(rank);
 
       // get selection_id
@@ -32,6 +43,7 @@ $(document).ready(function()
     // do this on finish loading
     // so that we don't have to do the ranking
     // ourselves
+    add_timetable_ranklabel();
     refresh_rank();
 
     // make the list sortable, and refresh the rank

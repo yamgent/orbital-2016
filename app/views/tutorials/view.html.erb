@@ -1,4 +1,5 @@
 <div class="container">
+  <%= javascript_include_tag 'tutorials_view' %>
   <h1>Tutorials Preferences (Main Page)</h1>
 
   <div class="row">
@@ -64,7 +65,7 @@
 
           <% row = 1 %>
           <% @user.user_tutorial_selections.sort_by(&:rank).each do |selection| %>
-          <tr>
+          <tr tutorialid="<%= selection.tutorial.id %>">
             <th scope="row">
               <% if selection.rank == TutorialsController::NO_RANK %>
                 ???

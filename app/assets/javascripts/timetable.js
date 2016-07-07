@@ -66,9 +66,11 @@ var Timetable = function()
 			while (hasClashes)
 			{
 				hasClashes = false;
-				slots[0] = _timetable.find(	"#" + _days[_periods[id].day] + 
-											" #row-" + rowIndex + 
-											" #time-" + _periods[id].startTime);
+				slots[0] = _timetable.find(
+					"#" + _days[_periods[id].day] + 
+					" #row-" + rowIndex + 
+					" #time-" + _periods[id].startTime
+				);
 				if (slots[0].children().length > 0)
 				{
 					if (slots[0].children(":first").hasClass("lecture"))

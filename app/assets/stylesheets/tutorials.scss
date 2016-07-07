@@ -31,3 +31,11 @@
 #tutorial-options .card.hidden {
   display: none;
 }
+
+#timetable .period .label {
+  display: inline;
+  float: right;
+  margin-top: .2em;
+  margin-right: .2em;
+  background: rgba(102, 0, 255, 0.5);
+}
