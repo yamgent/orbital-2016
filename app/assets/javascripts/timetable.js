@@ -20,17 +20,20 @@ var Timetable = function()
 	var _periods = new Array();
 	var _timetable = $("#timetable");
 	var _newRowSrc = $("#timetable tbody tr").first().clone();
+	_newRowSrc.find("th").remove();
 
 
 /* public methods */
 
+	// id is unique, may be called multiple times to set values
+	// must initPeriod for showPeriod to work
 	this.initPeriod = function(id, day, startTime, endTime, code, name, type, groupNum)
 	{
 		if (_periods[id] === undefined)
 		{
 			_periods[id] = new Array();
-			_periods[id].isShowing = false;
-			_periods[id].div = null;
+			_periods[id].isShowing = false;	// flag whether the DOM is added
+			_periods[id].div = null;		// points to the DOM element
 		}
 
 		// setters
@@ -49,6 +52,7 @@ var Timetable = function()
 		return this;
 	};
 
+	// adds the DOM to the timetable
 	this.showPeriod = function(id)
 	{
 		if (!_periods[id].isShowing)
@@ -71,21 +75,12 @@ var Timetable = function()
 					" #row-" + rowIndex + 
 					" #time-" + _periods[id].startTime
 				);
-				if (slots[0].children().length > 0)
-				{
-					if (slots[0].children(":first").hasClass("lecture"))
-						hasLectureClash = true;
 
-					rowIndex++;
-					if (rowIndex >= totalRows)
-						addRow(_periods[id].day);
-
-					hasClashes = true;
-					continue;	// continue this while-loop
-				}
-				for (i = 1; i < _periods[id].numOfSlots; i++)
+				for (i = 0; i < _periods[id].numOfSlots; i++)
 				{
-					slots[i] = slots[i-1].next();
+					if (i > 0)
+						slots[i] = slots[i - 1].next();
+
 					if (slots[i].children().length > 0)
 					{
 						if (slots[i].children(":first").hasClass("lecture"))
@@ -139,6 +134,7 @@ var Timetable = function()
 		return this;
 	};
 
+	// removes the DOM from the timetable
 	this.hidePeriod = function(id)
 	{
 		if (_periods[id].isShowing)
@@ -200,7 +196,7 @@ var Timetable = function()
 	{
 		if (_periods[id].isShowing)
 		{
-			_timetable.find(".period#"+id).stop(true, true).toggleClass(style, duration);
+			_timetable.find(".period#" + id).stop(true, true).toggleClass(style, duration);
 		}
 		return this;
 	};
@@ -222,6 +218,7 @@ var Timetable = function()
 				}
 				else
 				{
+					// show and hide instantly to check for clash
 					showPeriod(id);
 					if (_periods[id].div.hasClass("clash"))
 						clashIds[clashIds.length] = id;
@@ -239,15 +236,20 @@ var Timetable = function()
 	{
 		var tbody = _timetable.find("tbody#"+_days[day]);
 		var rowCount = tbody.children().length;
-		var newRow = _newRowSrc.clone().attr("id", "row-" + rowCount);
-		newRow.find("th div").html(_days[day][0]);
-		tbody.append(newRow);
-		return newRow;
+		tbody.append(_newRowSrc.clone().attr("id", "row-" + rowCount));
 	};
 
 	var removeRow = function(day, row)
 	{
 		var tbody = _timetable.find("tbody#"+_days[day]);
+
+		// take the th if row-0 is being removed
+		if (row == 0)
+		{
+			var th = tbody.find("#row-0 th");
+			tbody.find("#row-1").prepend(th);
+		}
+
 		var rowCount = tbody.children().length;
 		tbody.find("#row-" + row).remove();
 

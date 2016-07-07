@@ -1,23 +1,23 @@
+/*
+	timetable styles
+*/
 #timetable {
 	width: 100%;
 	table-layout: fixed;
 	border-collapse: separate;
 }
+#timetable thead {
+	line-height: 1em;
+}
 #timetable tbody th div {
 	float: right;
-	margin-right: 1.5em;
-	line-height: 1.5em;
+	margin-right: .25em;
 	text-transform: uppercase;
-	width: 0;
 }
-#timetable tbody tr th {
-	text-indent: 10em;
-	overflow: hidden;
-}
-#timetable tbody tr:first-child th {
-	text-indent: 0;
-	overflow: visible;
-}
+
+/*
+	borders
+*/
 #timetable tbody th,
 #timetable tbody td:nth-of-type(2n) {
 	border-right: 1px solid #e5e5e5;
@@ -28,10 +28,10 @@
 #timetable tbody tr:last-child td {
 	border-bottom: 1px solid #e5e5e5;
 }
-#timetable tbody td {
-	vertical-align: top;
-	padding: 0;
-}
+
+/*
+	period base style
+*/
 #timetable .period {
 	position: relative;
 	height: inherit;
@@ -50,21 +50,8 @@
 	display: block;
 }
 
-/* add more cases if required */
-#timetable .period.mins-30 { width: 100%; }
-#timetable .period.mins-60 { width: 200%; }
-#timetable .period.mins-90 { width: 300%; }
-#timetable .period.mins-120 { width: 400%; }
-#timetable .period.mins-150 { width: 500%; }
-#timetable .period.mins-180 { width: 600%; }
-#timetable .period.mins-210 { width: 700%; }
-#timetable .period.mins-240 { width: 800%; }
-#timetable .period.mins-270 { width: 900%; }
-#timetable .period.mins-300 { width: 1000%; }
-
-
 /*
-	custom styles
+	period custom styles
 */
 #timetable .period.selected {
 	opacity: 1.0;
@@ -90,3 +77,15 @@
 	border-radius: 0;
 	background-color: #f9bb7b;
 }
+
+/* add more cases if required */
+#timetable .period.mins-30 { width: 100%; }
+#timetable .period.mins-60 { width: 200%; }
+#timetable .period.mins-90 { width: 300%; }
+#timetable .period.mins-120 { width: 400%; }
+#timetable .period.mins-150 { width: 500%; }
+#timetable .period.mins-180 { width: 600%; }
+#timetable .period.mins-210 { width: 700%; }
+#timetable .period.mins-240 { width: 800%; }
+#timetable .period.mins-270 { width: 900%; }
+#timetable .period.mins-300 { width: 1000%; }

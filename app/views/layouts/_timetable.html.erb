@@ -11,7 +11,7 @@
 		<% [ "sun", "mon", "tue", "wed", "thu", "fri", "sat" ].each do |day| %>
 		<tbody id="<%= day %>">
 			<tr id="row-0" numofperiods="0">
-				<th><div><%= day[0] %></div></th>
+				<th rowspan="100"><div><%= day[0] %></div></th>
 				<% for i in 8..23 do %>
 					<td id="time-<%= i %>00"></td>
 					<td id="time-<%= i %>30"></td>
