@@ -213,17 +213,23 @@ var Timetable = function()
 		{
 			if (id[0] != "l")	// e.g. #lecture-0
 			{
-				showPeriod(id);
-				if (_periods[id].div.hasClass("clash"))
+				if (_periods[id].isShowing)
 				{
-					clashIds[clashIds.length] = id;
+					if (_periods[id].div.hasClass("clash"))
+						clashIds[clashIds.length] = id;
 				}
-				hidePeriod(id);
+				else
+				{
+					showPeriod(id);
+					if (_periods[id].div.hasClass("clash"))
+						clashIds[clashIds.length] = id;
+					hidePeriod(id);
+				}
 			}
 		}
 		return clashIds;
 	};
-	
+
 
 /* private methods */
 	
