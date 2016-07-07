@@ -31,7 +31,6 @@
 #timetable tbody td {
 	vertical-align: top;
 	padding: 0;
-	height: 2.5em;
 }
 #timetable .period {
 	position: relative;

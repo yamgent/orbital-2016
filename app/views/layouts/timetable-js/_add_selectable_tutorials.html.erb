@@ -9,7 +9,8 @@
         <%= getHourAndMinAsInt(tut.end_time) %>,
         "<%= c.code %>",
         "<%= c.name %>",
-        PeriodTypes.TUTORIAL
+        PeriodTypes.TUTORIAL,
+        "<%= tut.group_number %>"
       );
     <% end %>
   <% end %>
