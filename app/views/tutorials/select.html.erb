@@ -60,7 +60,7 @@
 <%= javascript_tag do %> // show initial selections
   $(function() {
     <% @user.tutorials.each do |tut| %>
-      $(".card[tutorialid='<%= tut.id %>']").addClass("selected");
+      $(".card[tutorialid='<%= tut.id %>']").addClass("selected").data("selected", 1);
     <% end %>
   });
 <% end %>

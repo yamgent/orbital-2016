@@ -1,25 +1,23 @@
 <table id="timetable">
 	<thead>
 		<tr>
-			<th colspan="1"><div>8</div></th>
-			<% for i in 9..23 do %>
+			<th colspan="1"></th>
+			<% for i in 8..23 do %>
 				<th colspan="2"><div><%= i %></div></th>
 			<% end %>
-			<th colspan="2"><div></div></th>
 		</tr>
 	</thead>
 
-	<tbody>
 		<% [ "sun", "mon", "tue", "wed", "thu", "fri", "sat" ].each do |day| %>
-			<tr>
-				<!-- just use the first letter -->
+		<tbody id="<%= day %>">
+			<tr id="row-0" numofperiods="0">
 				<th><div><%= day[0] %></div></th>
 				<% for i in 8..23 do %>
-					<td id="<%= day %>-<%= i %>00"></td>
-					<td id="<%= day %>-<%= i %>30"></td>
+					<td id="time-<%= i %>00"></td>
+					<td id="time-<%= i %>30"></td>
 				<% end %>
 			</tr>
+		</tbody>
 		<% end %>
-	</tbody>
 </table>
 <%= javascript_include_tag 'timetable' %>

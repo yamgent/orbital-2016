@@ -2,7 +2,7 @@
 
   <% @user.courses.each do |c| %>
     <% c.tutorials.each do |tut| %>
-      Timetable().addPeriod(
+      Timetable().initPeriod(
         <%= tut.id %>,
         <%= tut.day %>,
         <%= getHourAndMinAsInt(tut.start_time) %>,

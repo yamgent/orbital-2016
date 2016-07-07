@@ -3,17 +3,20 @@
 	table-layout: fixed;
 	border-collapse: separate;
 }
-#timetable thead th div {
-	text-align: right;
-	margin-right: -1.2em;
-}
 #timetable tbody th div {
 	float: right;
 	margin-right: 1.5em;
 	line-height: 1.5em;
 	text-transform: uppercase;
-    word-wrap: break-word;
 	width: 0;
+}
+#timetable tbody tr th {
+	text-indent: 10em;
+	overflow: hidden;
+}
+#timetable tbody tr:first-child th {
+	text-indent: 0;
+	overflow: visible;
 }
 #timetable tbody th,
 #timetable tbody td:nth-of-type(2n) {
@@ -22,10 +25,13 @@
 #timetable thead th[colspan="2"] {
 	border-bottom: 1px solid #e5e5e5;
 }
+#timetable tbody tr:last-child td {
+	border-bottom: 1px solid #e5e5e5;
+}
 #timetable tbody td {
 	vertical-align: top;
-	border-bottom: 1px solid #e5e5e5;
 	padding: 0;
+	height: 2.5em;
 }
 #timetable .period {
 	position: relative;
@@ -36,17 +42,10 @@
 	opacity: 0.5;
 	filter: alpha(opacity=50);
 }
-#timetable .lecture {
-	background-color: #f9bb7b;
-}
-#timetable .period-filler {
-	height: inherit;
-	width: 100%;
-}
 #timetable .period .inner-content {
 	padding: .5em;
 	font-size: x-small;
-	overflow: hidden
+	overflow: hidden;
 }
 #timetable .period span {
 	display: block;
@@ -68,29 +67,27 @@
 /*
 	custom styles
 */
-#timetable .period.style-hidden {
-	display: none;
-}
-#timetable .period.style-selected {
+#timetable .period.selected {
 	opacity: 1.0;
 	filter: alpha(opacity=100);
 }
-#timetable .period.style-highlight {
+#timetable .period.highlight {
 	background-color: #5bc0de;
 	box-shadow: inset 0px 0px 0px 1px #0275d8;
 }
-#timetable .period.lecture-clash {
+#timetable .period.clash.highlight {
 	background-color: #de5b5b;
 	box-shadow: inset 0px 0px 0px 1px #d80202;
-}
-#timetable .period.lecture-clash.style-highlight {
-	opacity: 1.0;
-	filter: alpha(opacity=100);
+	opacity: 0.7;
+	filter: alpha(opacity=70);
 	color: #ffffff;
 }
-#timetable .period.style-selected.style-highlight {
+#timetable .period.selected.highlight {
 	color: #ffffff;
 }
 #timetable .period.lecture {
+	opacity: 1.0;
+	filter: alpha(opacity=100);
 	border-radius: 0;
+	background-color: #f9bb7b;
 }
