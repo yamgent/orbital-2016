@@ -289,13 +289,24 @@ function windowResized()
 		mobile = true;
 	}
 
+	var timetable = $("#timetable-preview");
+	var extra_space = $("#mobile-timetable-space");
+
 	if (mobile)
 	{
-		$("#timetable-preview").addClass("footer navbar-fixed-bottom");
+		// stick the timetable to the bottom of the window
+		timetable.addClass("footer navbar-fixed-bottom");
+
+		// must ensure that we create enough space for the
+		// timetable itself (since it is fixed at the bottom,
+		// it is no longer taking up spaces in the page and
+		// will cover up content on the page)
+		extra_space.height(timetable.height());
 	}
 	else
 	{
-		$("#timetable-preview").removeClass("footer navbar-fixed-bottom");
+		timetable.removeClass("footer navbar-fixed-bottom");
+		extra_space.height(0);
 	}
 }
 
