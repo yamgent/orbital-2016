@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
+//= require js.cookie
 //= require turbolinks
 
 // Bootstrap version: 4.0.0-alpha.2
