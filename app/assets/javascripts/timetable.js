@@ -63,7 +63,7 @@ var Timetable = function()
 			var rowIndex = 0;
 			var totalRows = _timetable.find("#" + _days[_periods[id].day]).children().length;
 
-			// find empty slots else 
+			// find empty slots else
 			// go to next row and try again
 			var hasClashes = true;
 			var hasLectureClash = false;
@@ -71,8 +71,8 @@ var Timetable = function()
 			{
 				hasClashes = false;
 				slots[0] = _timetable.find(
-					"#" + _days[_periods[id].day] + 
-					" #row-" + rowIndex + 
+					"#" + _days[_periods[id].day] +
+					" #row-" + rowIndex +
 					" #time-" + _periods[id].startTime
 				);
 
@@ -100,8 +100,8 @@ var Timetable = function()
 			// now we have the empty slots, add period div
 			_periods[id].div = $("<div/>")
 				.attr("id", id)
-				.attr("title", 	_periods[id].code + " - " + 
-								_types[_periods[id].type] + " (" + 
+				.attr("title", 	_periods[id].code + " - " +
+								_types[_periods[id].type] + " (" +
 								_periods[id].groupNum + ")")
 				.addClass(
 					"period mins-" + _periods[id].duration +
@@ -231,7 +231,7 @@ var Timetable = function()
 
 
 /* private methods */
-	
+
 	var addRow = function(day)
 	{
 		var tbody = _timetable.find("tbody#"+_days[day]);
@@ -274,3 +274,36 @@ var Timetable = function()
 
 // enable tooltips
 $(document).tooltip();
+
+// if our window resized:
+//	- desktop: timetable should show on the right
+//	- mobile: timetable should stick at the bottom
+function windowResized()
+{
+	// mobile when width < 768
+	const MOBILE_MAX_WIDTH = 768;
+	var mobile = false;
+
+	if ($(window).width() < MOBILE_MAX_WIDTH)
+	{
+		mobile = true;
+	}
+
+	if (mobile)
+	{
+		$("#timetable-preview").addClass("footer navbar-fixed-bottom");
+	}
+	else
+	{
+		$("#timetable-preview").removeClass("footer navbar-fixed-bottom");
+	}
+}
+
+$(document).ready(function() {
+	windowResized();
+
+	$(window).resize(function() {
+		windowResized();
+
+	});
+});
