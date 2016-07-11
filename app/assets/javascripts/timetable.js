@@ -310,12 +310,32 @@ function windowResized()
 	}
 }
 
-// allow user to hide timetable
-function toggleTimetable()
+function getTimetableToggle()
 {
-	var isChecked = $("#timetable-toggle").is(":checked");
+	return (Cookies.get('timetable-toggle') == "true");
+}
 
-	if (isChecked)
+function setTimetableToggle(newValue)
+{
+	Cookies.set('timetable-toggle', newValue);
+}
+
+// if it is not defined before, the default should be true (= show)
+function initDefault_TimetableToggle()
+{
+	// null means this cookie is never set before
+	if (Cookies.get('timetable-toggle') == null)
+	{
+		setTimetableToggle(true);
+	}
+}
+
+// allow user to hide timetable
+function updateTimetableVisibility()
+{
+	var show_timetable = getTimetableToggle();
+
+	if (show_timetable)
 	{
 		$("#timetable").show("fast");
 	}
@@ -326,15 +346,28 @@ function toggleTimetable()
 }
 
 $(document).ready(function() {
+	// if it is not defined before, the default should be true (= show)
+	initDefault_TimetableToggle();
+
+	// update the checkbox to reflect cookie settings
+	$("#timetable-toggle").prop( "checked", getTimetableToggle());
+
 	windowResized();
+	updateTimetableVisibility();
+
 
 	$(window).resize(function() {
 		windowResized();
-
 	});
 
 	$("#timetable-toggle").on("click", function()
 	{
-		toggleTimetable();
+		var isChecked = $("#timetable-toggle").is(":checked");
+
+		// make our settings permanent across the different views
+		// with the help of the cookies
+		setTimetableToggle(isChecked);
+
+		updateTimetableVisibility();
 	});
 });
