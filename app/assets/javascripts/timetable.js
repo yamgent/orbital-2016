@@ -310,11 +310,31 @@ function windowResized()
 	}
 }
 
+// allow user to hide timetable
+function toggleTimetable()
+{
+	var isChecked = $("#timetable-toggle").is(":checked");
+
+	if (isChecked)
+	{
+		$("#timetable").show("fast");
+	}
+	else
+	{
+		$("#timetable").hide("fast");
+	}
+}
+
 $(document).ready(function() {
 	windowResized();
 
 	$(window).resize(function() {
 		windowResized();
 
+	});
+
+	$("#timetable-toggle").on("click", function()
+	{
+		toggleTimetable();
 	});
 });
