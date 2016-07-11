@@ -337,11 +337,11 @@ function updateTimetableVisibility()
 
 	if (show_timetable)
 	{
-		$("#timetable").show("fast");
+		$("#timetable").stop(true, true).show("fast");
 	}
 	else
 	{
-		$("#timetable").hide("fast");
+		$("#timetable").stop(true, true).hide("fast");
 	}
 }
 

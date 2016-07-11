@@ -1,3 +1,38 @@
+function getShowClashToggle()
+{
+  return (Cookies.get('showclash-toggle') == "true");
+}
+
+function setShowClashToggle(newValue)
+{
+  Cookies.set('showclash-toggle', newValue);
+}
+
+// if it is not defined before, the default should be true (= show)
+function initDefault_ShowClashToggle()
+{
+  // null means this cookie is never set before
+  if (Cookies.get('showclash-toggle') == null)
+  {
+    setShowClashToggle(true);
+  }
+}
+
+// allow user to hide clashes
+function updateShowClashVisibility()
+{
+  var show_clashes = getShowClashToggle();
+
+  if (show_clashes)
+  {
+    $(".card.disabled").stop(true, true).show("fast");
+  }
+  else
+  {
+    $(".card.disabled").stop(true, true).hide("fast");
+  }
+}
+
 $(document).ready(function()
 {
   // nested ready() will enforce this to be called last
@@ -8,6 +43,14 @@ $(document).ready(function()
     {
       $(".card[tutorialid="+ clashIds[i] +"]").addClass("disabled", 0);
     }
+
+    // After initializing clashes, check whether to show
+    // if it is not defined before, the default should be true (= show)
+    initDefault_ShowClashToggle();
+
+    // update the checkbox to reflect cookie settings
+    $("#showclash-toggle").prop( "checked", getShowClashToggle());
+    updateShowClashVisibility();
   });
 
 
@@ -53,11 +96,14 @@ $(document).ready(function()
       Timetable().removePeriodStyle($(this).attr("tutorialid"), "highlight", 200);
     }
   });
-  
 
-  $("#clash-checkbox").on("change", function() 
+  $("#showclash-toggle").on("change", function() 
   {
-    // hide clashing options
-    $(".card.disabled").toggleClass("hidden", 0);
+    var isChecked = $("#showclash-toggle").is(":checked");
+
+    // make our settings permanent across the different views
+    // with the help of the cookies
+    setShowClashToggle(isChecked);
+    updateShowClashVisibility();
   });
 });
