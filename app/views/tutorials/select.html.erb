@@ -4,6 +4,10 @@
 
   <div class="row">
     <div class="col-md-6">
+      <%= link_to 'Balloting Tips', "../docs/tut_ballot_tips", target: :_blank, class: "btn btn-info" %>
+      <%= link_to 'Help', "../docs/tut_step1", target: :_blank, class: "btn btn-info" %>
+      <hr>
+
       <%= form_tag('select_save', method: :post) do %>
         <p>Select slots that you wish to ballot.
         <%= hidden_field_tag 'preference_changes', '_' %>
@@ -32,7 +36,7 @@
           <div class="card-block">
             <blockquote class="card-blockquote">
               <p>
-                
+
               <%= getDay(tut.day) %>
               <%= getHourAndMin(tut.start_time) %> -
               <%= getHourAndMin(tut.end_time) %>
