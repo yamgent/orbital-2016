@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  get 'docs/tut_ballot_tips'
+
+  get 'docs/tut_step1'
+
+  get 'docs/tut_step2'
+
   get 'tutorials/view'
 
   get 'tutorials/select'
