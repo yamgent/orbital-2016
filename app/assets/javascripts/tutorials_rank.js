@@ -24,7 +24,7 @@ function refresh_rank()
 
       // modify the content to reflect the number
       $("#timetable .period#" + $(this).attr("tutorialid") + " .label").html(rank);
-      $(this).find('[scope=row]').html(rank);
+      $(this).find('[class=rank_num]').html(rank);
 
       // get selection_id
       selection_id = $(this).attr("selectionid");
@@ -36,6 +36,49 @@ function refresh_rank()
 
   // update the hidden field
   $("#preferences").val(preferences);
+}
+
+// find row with the given selection_id
+function find_row(selection_id)
+{
+  return $("#tutorial-list tr[selectionid=" + selection_id + "]");
+}
+
+// move the selected row up by one
+function move_up(selection_id)
+{
+  // find the corresponding row
+  var current_row = find_row(selection_id);
+  var row_idx = current_row.parent().children().index(current_row);
+
+  if (row_idx <= 0)
+    // can't move up, already the first row!
+    return;
+
+  // swap!
+  var prev_row = current_row.parent().children().eq(row_idx - 1);
+  prev_row.insertAfter(current_row);
+
+  refresh_rank();
+}
+
+// move the selected row down by one
+function move_down(selection_id)
+{
+  // find the corresponding row
+  var current_row = find_row(selection_id);
+  var row_idx = current_row.parent().children().index(current_row);
+  var total_rows = current_row.parent().children().length;
+
+  if (row_idx >= total_rows - 1)
+    // can't move down, already the last row!
+    return;
+
+  // swap!
+  var next_row = current_row.parent().children().eq(row_idx + 1);
+  current_row.insertAfter(next_row);
+
+  refresh_rank();
 }
 
 $(document).ready(function()
@@ -51,6 +94,23 @@ $(document).ready(function()
     $("#tutorial-list tbody").sortable({stop: function() {
       refresh_rank();
     }});
+
+    // add functionality to the move-up / move-down
+    // buttons so that mobile users can just press
+    // up / down instead of having to drag
+    $("#tutorial-list tr .move-up").each(function() {
+      var selectionid = $(this).parent().parent().attr("selectionid");
+      $(this).click(function() {
+        move_up(selectionid);
+      });
+    });
+    $("#tutorial-list tr .move-down").each(function() {
+      var selectionid = $(this).parent().parent().attr("selectionid");
+      $(this).click(function() {
+        move_down(selectionid);
+      });
+    });
+
 
     $("#tutorial-list tbody tr").on({
       mouseenter : function() {

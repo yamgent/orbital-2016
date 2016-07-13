@@ -29,7 +29,11 @@
         <tbody>
           <% @user.user_tutorial_selections.sort_by(&:rank).each do |selection| %>
           <tr selectionid="<%= selection.id %>" tutorialid="<%= selection.tutorial.id %>">
-            <th scope="row">###</th>
+            <th scope="row">
+              <span class="rank_num">###RANK###</span>
+              <br><div class="btn btn-secondary move-up">/\</div>
+              <br><div class="btn btn-secondary move-down">\/</div>
+            </th>
             <td><%= selection.tutorial.course.code %></td>
             <td>Tutorial (<%= selection.tutorial.group_number %>)</td>
             <td>
