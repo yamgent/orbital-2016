@@ -335,13 +335,32 @@ function updateTimetableVisibility()
 {
 	var show_timetable = getTimetableToggle();
 
+	var column_main_content = $(".main-content");
+	var column_timetable_preview = $("#timetable-preview");
+
 	if (show_timetable)
 	{
 		$("#timetable").stop(true, true).show("fast");
+
+		// restore timetable size
+		column_timetable_preview.removeClass("col-md-2");
+		column_timetable_preview.addClass("col-md-6");
+
+		// make space for timetable column
+		column_main_content.removeClass("col-md-10");
+		column_main_content.addClass("col-md-6");
 	}
 	else
 	{
 		$("#timetable").stop(true, true).hide("fast");
+
+		// shrink the timetable column
+		column_timetable_preview.removeClass("col-md-6");
+		column_timetable_preview.addClass("col-md-2");
+
+		// expand the main content
+		column_main_content.removeClass("col-md-6");
+		column_main_content.addClass("col-md-10");
 	}
 }
 
