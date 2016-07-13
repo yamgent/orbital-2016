@@ -97,12 +97,17 @@ var Timetable = function()
 				// loop again if hasClashes
 			}
 
+			// setup the tooltip
+			var tooltip_content = _periods[id].code + " - " + _types[_periods[id].type];
+			if (_periods[id].groupNum != "")
+			{
+				tooltip_content += " (" + _periods[id].groupNum + ")";
+			}
+
 			// now we have the empty slots, add period div
 			_periods[id].div = $("<div/>")
 				.attr("id", id)
-				.attr("title", 	_periods[id].code + " - " +
-								_types[_periods[id].type] + " (" +
-								_periods[id].groupNum + ")")
+				.attr("title", tooltip_content)
 				.addClass(
 					"period mins-" + _periods[id].duration +
 					(_periods[id].type == PeriodTypes.LECTURE ? " lecture" : "") +

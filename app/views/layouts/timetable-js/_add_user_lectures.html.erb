@@ -9,7 +9,8 @@
         <%= getHourAndMinAsInt(lec.end_time) %>,
         "<%= c.code %>",
         "<%= c.name %>",
-        PeriodTypes.LECTURE
+        PeriodTypes.LECTURE,
+        ""
       )
       .showPeriod("lecture-<%= lec.id %>")
       .addPeriodStyle("lecture-<%= lec.id %>", "selected", 0);
