@@ -3,7 +3,7 @@
   <h1>Tutorials Selection (Step 1 of 2)</h1>
 
   <div class="row">
-    <div class="col-md-6">
+    <div id="tutorial-options" class="col-md-6 main-content">
       <%= link_to 'Balloting Tips', "../docs/tut_ballot_tips", target: :_blank, class: "btn btn-info" %>
       <%= link_to 'Help', "../docs/tut_step1", target: :_blank, class: "btn btn-info" %>
       <hr>
@@ -14,20 +14,14 @@
         <%= submit_tag "Next", id: "save", class:"btn btn-primary" %>
         </p>
       <% end %>
-    </div>
 
-    <div class="col-md-6">
       <div class="checkbox">
         <label>
           <input id="showclash-toggle" type="checkbox" checked>
           Show slots that clashes with lectures
         </label>
       </div>
-    </div>
-  </div>
 
-  <div class="row">
-    <div id="tutorial-options" class="col-md-6 main-content">
       <% @user.courses.each do |c| %>
       <h2><%= c.code %> - <%= c.name %></h2>
       <div class="card-columns">
@@ -37,18 +31,23 @@
             <blockquote class="card-blockquote">
               <p>
 
+              <%= tut.group_number %>
+              <hr>
               <%= getDay(tut.day) %>
               <%= getHourAndMin(tut.start_time) %> -
               <%= getHourAndMin(tut.end_time) %>
-              <br>
-              (<%= tut.group_number %>)
-
               <% if tut.odd? %>
                 <br>(Odd Week)
               <% elsif tut.even? %>
                 <br>(Even Week)
               <% end %>
 
+              <% if tut.has_second_tutorial? %>
+                <hr>
+                <%= getDay(tut.second_day) %>
+                <%= getHourAndMin(tut.second_start_time) %> -
+                <%= getHourAndMin(tut.second_end_time) %>
+              <% end %>
               </p>
             </blockquote>
           </div>

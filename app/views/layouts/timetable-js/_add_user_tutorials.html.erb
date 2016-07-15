@@ -8,8 +8,20 @@
       <%= getHourAndMinAsInt(tut.end_time) %>,
       "<%= tut.course.code %>",
       "<%= tut.course.name %>",
-      PeriodTypes.TUTORIAL,
+      <% if tut.odd? %>
+        PeriodTypes.TUTORIAL_ODD
+      <% elsif tut.even? %>
+        PeriodTypes.TUTORIAL_EVEN
+      <% else %>
+        PeriodTypes.TUTORIAL
+      <% end %>,
       "<%= tut.group_number %>"
+      <% if tut.has_second_tutorial? %>
+        ,
+        <%= tut.second_day %>,
+        <%= getHourAndMinAsInt(tut.second_start_time) %>,
+        <%= getHourAndMinAsInt(tut.second_end_time) %>
+      <% end %>
     )
     .showPeriod(<%= tut.id %>)
     .addPeriodStyle(<%= tut.id %>, "selected", 0);

@@ -45,6 +45,7 @@
 	padding: .5em;
 	font-size: x-small;
 	overflow: hidden;
+	white-space: nowrap;
 }
 #timetable .period span {
 	display: block;

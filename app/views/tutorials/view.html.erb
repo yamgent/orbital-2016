@@ -77,16 +77,37 @@
             </th>
             <td><%= selection.tutorial.course.code %></td>
             <td>Tutorial (<%= selection.tutorial.group_number %>)</td>
-            <td>
-              <%= getDay(selection.tutorial.day) %>
-              <% if selection.tutorial.odd? %>
-                <br>(Odd Week)
-              <% elsif selection.tutorial.even? %>
-                <br>(Even Week)
-              <% end %>
+            <td colspan="2">
+              <table class="inner-table">
+                <tbody class="not-sortable">
+                  <tr>
+                    <td>
+                      <%= getDay(selection.tutorial.day) %>
+                      <% if selection.tutorial.odd? %>
+                        <br>(Odd Week)
+                      <% elsif selection.tutorial.even? %>
+                        <br>(Even Week)
+                      <% end %>
+                    </td>
+                    <td>
+                      <%= getHourAndMin(selection.tutorial.start_time) %> - 
+                      <%= getHourAndMin(selection.tutorial.end_time) %>
+                    </td>
+                  </tr>
+                  <% if selection.tutorial.has_second_tutorial? %>
+                    <tr>
+                      <td>
+                        <%= getDay(selection.tutorial.second_day) %>
+                      </td>
+                      <td>
+                        <%= getHourAndMin(selection.tutorial.second_start_time) %> - 
+                        <%= getHourAndMin(selection.tutorial.second_end_time) %>
+                      </td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
             </td>
-            <td><%= getHourAndMin(selection.tutorial.start_time) %>
-                  - <%= getHourAndMin(selection.tutorial.end_time) %></td>
           </tr>
           <% end %>
         </tbody>

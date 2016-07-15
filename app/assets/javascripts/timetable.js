@@ -1,6 +1,8 @@
 var PeriodTypes = {
-	TUTORIAL: 0,
-	LECTURE: 1,
+	LECTURE: 0,
+	TUTORIAL: 1,
+	TUTORIAL_ODD: 2,
+	TUTORIAL_EVEN: 3,
 };
 
 var Timetable = function()
@@ -12,7 +14,7 @@ var Timetable = function()
 	Timetable.prototype._singletonInstance = this;
 
 	var _days = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
-	var _types = ["TUT", "LEC"];
+	var _types = ["LEC", "TUT", "TUT", "TUT"];
 
 
 /* initialization */
@@ -27,13 +29,16 @@ var Timetable = function()
 
 	// id is unique, may be called multiple times to set values
 	// must initPeriod for showPeriod to work
-	this.initPeriod = function(id, day, startTime, endTime, code, name, type, groupNum)
+	this.initPeriod = function(id, day, startTime, endTime, code, name, type, groupNum,
+							day2, startTime2, endTime2)
 	{
 		if (_periods[id] === undefined)
 		{
 			_periods[id] = new Array();
-			_periods[id].isShowing = false;	// flag whether the DOM is added
-			_periods[id].div = null;		// points to the DOM element
+			_periods[id].isShowing = false;			// flag whether the DOM is added
+			_periods[id].hasLectureClash = false;	// flag whether clashes with a lecture time
+			_periods[id].div = null;				// points to the DOM element
+			_periods[id].div2 = null;				// points to the second DOM element
 		}
 
 		// setters
@@ -45,97 +50,52 @@ var Timetable = function()
 		_periods[id].type = type;
 		_periods[id].groupNum = groupNum;
 
+		_periods[id].day2 = day2;
+		_periods[id].startTime2 = startTime2;
+		_periods[id].endTime2 = endTime2;
+
 		// computed vars
-		_periods[id].duration = timeDiffInMins(_periods[id].endTime, _periods[id].startTime);
+		_periods[id].duration = timeDiffInMins(endTime, startTime);
 		_periods[id].numOfSlots = Math.ceil(_periods[id].duration / 30);
+
+		_periods[id].hasSecondPeriod = (day2 !== undefined);
+		_periods[id].duration2 = timeDiffInMins(endTime2, startTime2);
+		_periods[id].numOfSlots2 = Math.ceil(_periods[id].duration2 / 30);
 
 		return this;
 	};
 
-	// adds the DOM to the timetable
 	this.showPeriod = function(id)
 	{
 		if (!_periods[id].isShowing)
 		{
-			// to get the required slots
-			// while checking for clashes
-			var slots = new Array();
-			var rowIndex = 0;
-			var totalRows = _timetable.find("#" + _days[_periods[id].day]).children().length;
-
-			// find empty slots else
-			// go to next row and try again
-			var hasClashes = true;
-			var hasLectureClash = false;
-			while (hasClashes)
+			_periods[id].div = addPeriodDiv(
+				id, 
+				_periods[id].day, 
+				_periods[id].startTime, 
+				_periods[id].endTime, 
+				_periods[id].duration, 
+				_periods[id].numOfSlots
+			);
+			if (_periods[id].hasSecondPeriod)
 			{
-				hasClashes = false;
-				slots[0] = _timetable.find(
-					"#" + _days[_periods[id].day] +
-					" #row-" + rowIndex +
-					" #time-" + _periods[id].startTime
+				_periods[id].div2 = addPeriodDiv(
+					id, 
+					_periods[id].day2, 
+					_periods[id].startTime2, 
+					_periods[id].endTime2, 
+					_periods[id].duration2, 
+					_periods[id].numOfSlots2
 				);
-
-				for (i = 0; i < _periods[id].numOfSlots; i++)
-				{
-					if (i > 0)
-						slots[i] = slots[i - 1].next();
-
-					if (slots[i].children().length > 0)
-					{
-						if (slots[i].children(":first").hasClass("lecture"))
-							hasLectureClash = true;
-
-						rowIndex++;
-						if (rowIndex >= totalRows)
-							addRow(_periods[id].day);
-
-						hasClashes = true;
-						break;	// break from inner for-loop
-					}
-				}
-				// loop again if hasClashes
 			}
-
-			// setup the tooltip
-			var tooltip_content = _periods[id].code + " - " + _types[_periods[id].type];
-			if (_periods[id].groupNum != "")
-			{
-				tooltip_content += " (" + _periods[id].groupNum + ")";
-			}
-
-			// now we have the empty slots, add period div
-			_periods[id].div = $("<div/>")
-				.attr("id", id)
-				.attr("title", tooltip_content)
-				.addClass(
-					"period mins-" + _periods[id].duration +
-					(_periods[id].type == PeriodTypes.LECTURE ? " lecture" : "") +
-					(hasLectureClash ? " clash" : "")
-				)
-				.append(
-					$("<div/>")
-					.addClass("inner-content")
-					.append($("<span/>").text(_periods[id].code))
-					.append($("<span/>").text(_types[_periods[id].type]))
-					.append($("<span/>").text(_periods[id].groupNum))
-				);
-			slots[0].append(_periods[id].div);
-
-			// and add period filler
-			for (i = 1; i < _periods[id].numOfSlots; i++)
-			{
-				slots[i].append($("<div/>").addClass(
-					"period-filler" +
-					(_periods[id].type == PeriodTypes.LECTURE ? " lecture" : "")
-				));
-			}
-
-			// store numofperiods in tablerow DOM
-			var tablerow = _timetable.find("#" + _days[_periods[id].day] + " #row-" + rowIndex);
-			tablerow.attr("numofperiods", parseInt(tablerow.attr("numofperiods")) + 1);
 			_periods[id].isShowing = true;
 		}
+
+		if (_periods[id].hasLectureClash)
+		{
+			addPeriodStyle(id, "clash", 0);
+		}
+
 		return this;
 	};
 
@@ -144,24 +104,12 @@ var Timetable = function()
 	{
 		if (_periods[id].isShowing)
 		{
-			// delete it and its fillers
-			var currentSlot = _periods[id].div.parent();
-			for (i = 0; i < _periods[id].numOfSlots; i++)
-			{
-				currentSlot.empty();
-				currentSlot = currentSlot.next();
-			}
-
-			// update numofperiods, remove additional row if empty
-			var tablerow = currentSlot.parent();
-			var newNumOfPeriods = parseInt(tablerow.attr("numofperiods")) - 1;
-
-			if (newNumOfPeriods <= 0 && tablerow.siblings().length > 0)
-				removeRow(_periods[id].day, tablerow.attr("id").split("-")[1]);
-			else
-				tablerow.attr("numofperiods", newNumOfPeriods);
+			removePeriodDiv(id, _periods[id].div, _periods[id].numOfSlots);
+			if (_periods[id].hasSecondPeriod)
+				removePeriodDiv(id, _periods[id].div2, _periods[id].numOfSlots2);
 
 			_periods[id].div = null;
+			_periods[id].div2 = null;
 			_periods[id].isShowing = false;
 		}
 		return this;
@@ -181,8 +129,12 @@ var Timetable = function()
 		if (_periods[id].isShowing)
 		{
 			if (!_periods[id].div.hasClass(style))
-			{
 				_periods[id].div.stop(true, true).addClass(style, duration);
+
+			if (_periods[id].hasSecondPeriod)
+			{
+				if (!_periods[id].div2.hasClass(style))
+					_periods[id].div2.stop(true, true).addClass(style, duration);
 			}
 		}
 		return this;
@@ -193,6 +145,10 @@ var Timetable = function()
 		if (_periods[id].isShowing)
 		{
 			_periods[id].div.stop(true, true).removeClass(style, duration);
+			if (_periods[id].hasSecondPeriod)
+			{
+				_periods[id].div2.stop(true, true).removeClass(style, duration);
+			}
 		}
 		return this;
 	};
@@ -218,14 +174,14 @@ var Timetable = function()
 			{
 				if (_periods[id].isShowing)
 				{
-					if (_periods[id].div.hasClass("clash"))
+					if (_periods[id].hasLectureClash)
 						clashIds[clashIds.length] = id;
 				}
 				else
 				{
 					// show and hide instantly to check for clash
 					showPeriod(id);
-					if (_periods[id].div.hasClass("clash"))
+					if (_periods[id].hasLectureClash)
 						clashIds[clashIds.length] = id;
 					hidePeriod(id);
 				}
@@ -236,6 +192,118 @@ var Timetable = function()
 
 
 /* private methods */
+
+	// adds the DOM to the timetable
+	var addPeriodDiv = function(id, day, startTime, endTime, duration, numOfSlots)
+	{
+		// to get the required slots
+		// while checking for clashes
+		var slots = new Array();
+		var rowIndex = 0;
+		var totalRows = _timetable.find("#" + _days[day]).children().length;
+
+		// find empty slots else
+		// go to next row and try again
+		var hasClashes = true;
+		while (hasClashes)
+		{
+			hasClashes = false;
+			slots[0] = _timetable.find(
+				"#" + _days[day] +
+				" #row-" + rowIndex +
+				" #time-" + startTime
+			);
+
+			for (i = 0; i < numOfSlots; i++)
+			{
+				if (i > 0)
+					slots[i] = slots[i - 1].next();
+
+				if (slots[i].children().length > 0)
+				{
+					if (slots[i].children(":first").hasClass("lecture"))
+						_periods[id].hasLectureClash = true;
+
+					rowIndex++;
+					if (rowIndex >= totalRows)
+						addRow(day);
+
+					hasClashes = true;
+					break;	// break from inner for-loop
+				}
+			}
+			// loop again if hasClashes
+		}
+
+		// setup the tooltip
+		var tooltip_content = _periods[id].code + " - " + _types[_periods[id].type];
+		if (_periods[id].groupNum != "")
+		{
+			tooltip_content += " (" + _periods[id].groupNum + ")";
+		}
+		if (_periods[id].type == PeriodTypes.TUTORIAL_ODD)
+		{
+			tooltip_content += " [Odd]";
+		}
+		else if (_periods[id].type == PeriodTypes.TUTORIAL_EVEN)
+		{
+			tooltip_content += " [Even]";
+		}
+
+		// now we have the empty slots, add period div
+		var newDiv = $("<div/>")
+			.attr("id", id)
+			.attr("title", tooltip_content)
+			.addClass(
+				"period mins-" + duration +
+				(_periods[id].type == PeriodTypes.LECTURE ? " lecture" : "")
+			)
+			.append(
+				$("<div/>")
+				.addClass("inner-content")
+				.append($("<span/>").text(_periods[id].code))
+				.append($("<span/>").text(_types[_periods[id].type]))
+				.append($("<span/>").text(_periods[id].groupNum))
+				.append(_periods[id].type == PeriodTypes.TUTORIAL_ODD ? $("<span/>").text("[Odd]") : "")
+				.append(_periods[id].type == PeriodTypes.TUTORIAL_EVEN ? $("<span/>").text("[Even]") : "")
+			);
+		slots[0].append(newDiv);
+
+		// and add period filler
+		for (i = 1; i < numOfSlots; i++)
+		{
+			slots[i].append($("<div/>").addClass(
+				"period-filler" +
+				(_periods[id].type == PeriodTypes.LECTURE ? " lecture" : "")
+			));
+		}
+
+		// store numofperiods in tablerow DOM
+		var tablerow = _timetable.find("#" + _days[day] + " #row-" + rowIndex);
+		tablerow.attr("numofperiods", parseInt(tablerow.attr("numofperiods")) + 1);
+
+		return newDiv;
+	};
+
+	var removePeriodDiv = function(id, div, numOfSlots)
+	{
+		// delete it and its fillers
+		var currentSlot = div.parent();
+		for (i = 0; i < numOfSlots; i++)
+		{
+			currentSlot.empty();
+			currentSlot = currentSlot.next();
+		}
+
+		// update numofperiods, remove additional row if empty
+		var tablerow = currentSlot.parent();
+		var newNumOfPeriods = parseInt(tablerow.attr("numofperiods")) - 1;
+
+		if (newNumOfPeriods <= 0 && tablerow.siblings().length > 0)
+			removeRow(_periods[id].day, tablerow.attr("id").split("-")[1]);
+		else
+			tablerow.attr("numofperiods", newNumOfPeriods);
+	};
 
 	var addRow = function(day)
 	{

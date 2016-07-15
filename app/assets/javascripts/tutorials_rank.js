@@ -91,9 +91,11 @@ $(document).ready(function()
 
     // make the list sortable, and refresh the rank
     // numbers after a sort
-    $("#tutorial-list tbody").sortable({stop: function() {
-      refresh_rank();
-    }});
+    $("#tutorial-list tbody[class!='not-sortable']").sortable({
+      stop: function() {
+        refresh_rank();
+      }
+    });
 
     // add functionality to the move-up / move-down
     // buttons so that mobile users can just press
