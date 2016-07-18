@@ -1,6 +1,9 @@
 class SessionsController < ApplicationController
   skip_before_action :authorize
   def new
+    if session[:user_id] != nil
+      redirect_to tutorials_view_url
+    end
   end
 
   def create

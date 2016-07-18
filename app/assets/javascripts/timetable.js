@@ -263,7 +263,7 @@ var Timetable = function()
 				.addClass("inner-content")
 				.append($("<span/>").text(_periods[id].code))
 				.append($("<span/>").text(_types[_periods[id].type]))
-				.append($("<span/>").text(_periods[id].groupNum))
+				.append($("<span/>").text("(" + _periods[id].groupNum + ")"))
 				.append(_periods[id].type == PeriodTypes.TUTORIAL_ODD ? $("<span/>").text("[Odd]") : "")
 				.append(_periods[id].type == PeriodTypes.TUTORIAL_EVEN ? $("<span/>").text("[Even]") : "")
 			);

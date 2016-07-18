@@ -31,7 +31,7 @@
             <blockquote class="card-blockquote">
               <p>
 
-              <%= tut.group_number %>
+              Tutorial (<%= tut.group_number %>)
               <hr>
               <%= getDay(tut.day) %>
               <%= getHourAndMin(tut.start_time) %> -
@@ -54,6 +54,7 @@
         </div>
         <% end %>
       </div>
+      <hr>
       <% end %>
     </div>
 
