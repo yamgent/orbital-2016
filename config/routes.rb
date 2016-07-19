@@ -15,15 +15,12 @@ Rails.application.routes.draw do
 
   post 'tutorials/rank_save', to: 'tutorials#rank_save'
 
-  get 'admin/index'
-
   get 'sessions/new'
 
   get 'sessions/create'
 
   get 'sessions/destroy'
 
-  get 'admin' => 'admin#index'
   controller :sessions do
     get 'login' => :new
     post 'login' => :create
