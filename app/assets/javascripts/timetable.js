@@ -260,12 +260,25 @@ var Timetable = function()
 			)
 			.append(
 				$("<div/>")
-				.addClass("inner-content")
+				// only show in desktop
+				.addClass("inner-content hidden-sm-down")
 				.append($("<span/>").text(_periods[id].code))
 				.append($("<span/>").text(_types[_periods[id].type]))
 				.append($("<span/>").text("(" + _periods[id].groupNum + ")"))
 				.append(_periods[id].type == PeriodTypes.TUTORIAL_ODD ? $("<span/>").text("[Odd]") : "")
 				.append(_periods[id].type == PeriodTypes.TUTORIAL_EVEN ? $("<span/>").text("[Even]") : "")
+			)
+			.append(
+				$("<div/>")
+				// for mobile, still have 2px contents so that the
+				// rectangle do not disappear
+				.addClass("mobile hidden-md-up")
+
+				// add dummy text, otherwise the rectangle will be of size 0px
+				// and will disappear
+				.append($("<span/>").text("A").css("font-size", "2px"))
+				.append($("<span/>").text("A").css("font-size", "2px"))
+				.append($("<span/>").text("A").css("font-size", "2px"))
 			);
 		slots[0].append(newDiv);
 
