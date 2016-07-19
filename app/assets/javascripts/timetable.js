@@ -70,21 +70,21 @@ var Timetable = function()
 		if (!_periods[id].isShowing)
 		{
 			_periods[id].div = addPeriodDiv(
-				id, 
-				_periods[id].day, 
-				_periods[id].startTime, 
-				_periods[id].endTime, 
-				_periods[id].duration, 
+				id,
+				_periods[id].day,
+				_periods[id].startTime,
+				_periods[id].endTime,
+				_periods[id].duration,
 				_periods[id].numOfSlots
 			);
 			if (_periods[id].hasSecondPeriod)
 			{
 				_periods[id].div2 = addPeriodDiv(
-					id, 
-					_periods[id].day2, 
-					_periods[id].startTime2, 
-					_periods[id].endTime2, 
-					_periods[id].duration2, 
+					id,
+					_periods[id].day2,
+					_periods[id].startTime2,
+					_periods[id].endTime2,
+					_periods[id].duration2,
 					_periods[id].numOfSlots2
 				);
 			}
@@ -353,14 +353,7 @@ $(document).tooltip();
 //	- mobile: timetable should stick at the bottom
 function windowResized()
 {
-	// mobile when width < 768
-	const MOBILE_MAX_WIDTH = 768;
-	var mobile = false;
-
-	if ($(window).width() < MOBILE_MAX_WIDTH)
-	{
-		mobile = true;
-	}
+	var mobile = isMobile();
 
 	var timetable = $("#timetable-preview");
 	var extra_space = $("#mobile-timetable-space");

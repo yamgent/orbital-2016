@@ -11,6 +11,7 @@ Rails.application.config.assets.version = '1.0'
 # Rails.application.config.assets.precompile += %w( search.js )
 
 Rails.application.config.assets.precompile += %w( timetable.js )
+Rails.application.config.assets.precompile += %w( mobile_detect.js )
 Rails.application.config.assets.precompile += %w( tutorials_rank.js )
 Rails.application.config.assets.precompile += %w( tutorials_select.js )
 Rails.application.config.assets.precompile += %w( tutorials_view.js )
