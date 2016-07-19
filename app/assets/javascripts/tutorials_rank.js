@@ -18,7 +18,7 @@ function refresh_rank()
   var preferences = "";
 
   // for each item in the list
-  $("#tutorial-list tr").each(function() {
+  $("#tutorial-list > tbody > tr").each(function() {
       // get the rank number
       rank = $(this).parent().children().index($(this)) + 1;
 
@@ -81,7 +81,8 @@ function move_down(selection_id)
   refresh_rank();
 }
 
-var tutorial_list_sortable_selector = "#tutorial-list tbody[class!='not-sortable']";
+// only direct child of #tutorial-list is sortable, exclude nested tables
+var tutorial_list_sortable_selector = "#tutorial-list > tbody";
 
 function tutorial_rank_windowResized()
 {
@@ -121,8 +122,8 @@ $(document).ready(function()
       });
     });
 
-
-    $("#tutorial-list tbody tr").on({
+    // Only triggers direct child, exclude nested table rows
+    $("#tutorial-list > tbody > tr").on({
       mouseenter : function() {
         Timetable().togglePeriodStyle($(this).attr("tutorialid"), "highlight", 200);
       },
