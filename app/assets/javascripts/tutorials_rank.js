@@ -81,6 +81,14 @@ function move_down(selection_id)
   refresh_rank();
 }
 
+var tutorial_list_sortable_selector = "#tutorial-list tbody[class!='not-sortable']";
+
+function tutorial_rank_windowResized()
+{
+  var mobile = isMobile();
+  $(tutorial_list_sortable_selector).sortable("option", "disabled", mobile);
+}
+
 $(document).ready(function()
 {
     // do this on finish loading
@@ -91,7 +99,7 @@ $(document).ready(function()
 
     // make the list sortable, and refresh the rank
     // numbers after a sort
-    $("#tutorial-list tbody[class!='not-sortable']").sortable({
+    $(tutorial_list_sortable_selector).sortable({
       stop: function() {
         refresh_rank();
       }
@@ -127,6 +135,11 @@ $(document).ready(function()
 
     $("#save").click(function(){
       changesConfirmed = true;
+    });
+
+    windowResized();
+    $(window).resize(function() {
+      tutorial_rank_windowResized();
     });
 
     $(window).bind('beforeunload', function(){
