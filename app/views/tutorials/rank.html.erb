@@ -31,8 +31,8 @@
           <tr selectionid="<%= selection.id %>" tutorialid="<%= selection.tutorial.id %>">
             <th scope="row">
               <span class="rank_num">###RANK###</span>
-              <br><div class="btn btn-secondary move-up">/\</div>
-              <br><div class="btn btn-secondary move-down">\/</div>
+              <br><div class="btn btn-secondary move-up hidden-sm-down">/\</div>
+              <br><div class="btn btn-secondary move-down hidden-sm-down">\/</div>
             </th>
             <td><%= selection.tutorial.course.code %></td>
             <td>Tutorial (<%= selection.tutorial.group_number %>)</td>
@@ -49,7 +49,7 @@
                       <% end %>
                     </td>
                     <td>
-                      <%= getHourAndMin(selection.tutorial.start_time) %> - 
+                      <%= getHourAndMin(selection.tutorial.start_time) %> -
                       <%= getHourAndMin(selection.tutorial.end_time) %>
                     </td>
                   </tr>
@@ -59,7 +59,7 @@
                         <%= getDay(selection.tutorial.second_day) %>
                       </td>
                       <td>
-                        <%= getHourAndMin(selection.tutorial.second_start_time) %> - 
+                        <%= getHourAndMin(selection.tutorial.second_start_time) %> -
                         <%= getHourAndMin(selection.tutorial.second_end_time) %>
                       </td>
                     </tr>
