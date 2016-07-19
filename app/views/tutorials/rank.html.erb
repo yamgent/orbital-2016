@@ -9,7 +9,8 @@
       <hr>
 
       <%= form_tag('rank_save', method: :post) do %>
-        <p>Rank your preferences.
+        <p>Rank your preferences. Drag and drop each tutorial slot
+          to change the order of the rankings.
               <%= hidden_field_tag 'preferences' %>
               <%= submit_tag "Save", id: "save", class:"btn btn-primary" %>
         </p>
