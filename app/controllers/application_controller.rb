@@ -10,4 +10,10 @@ class ApplicationController < ActionController::Base
       redirect_to login_url, notice: "You are not authorized to view this page."
     end
   end
+
+  def authorize_admin
+    unless User.find_by(id: session[:user_id]).admin?
+      redirect_to login_url, notice: "You do not have admin privileges."
+    end
+  end
 end
