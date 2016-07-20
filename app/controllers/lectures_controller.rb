@@ -1,6 +1,6 @@
 class LecturesController < ApplicationController
   before_action :set_lecture, only: [:edit, :update, :destroy]
-  before_action :authorize_admin, :initUser
+  before_action :authorize_admin
 
   # GET /lectures/new
   def new

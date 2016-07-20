@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  skip_before_action :authorize
+  skip_before_action :authorize, :initUser
   def new
     if session[:user_id] != nil
       redirect_to tutorials_view_url

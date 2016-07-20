@@ -1,7 +1,7 @@
 class CoursesController < ApplicationController
   before_action :set_course, only: [:show, :edit, :update, :destroy,
                                       :add_student, :remove_student]
-  before_action :authorize_admin, :initUser
+  before_action :authorize_admin
 
   # GET /courses
   def index

@@ -1,5 +1,4 @@
 class TutorialsController < ApplicationController
-  before_action :authorize, :initUser
 
   # The magic number for having no rank (if the user
   # selected the slot but did not rank them yet)
