@@ -28,7 +28,8 @@
             <td><%= link_to 'Remove',
              { action: :remove_student, params: { student: student.id } },
              method: :post,
-             class: "btn btn-danger" %></td>
+             class: "btn btn-danger",
+             data: { confirm: 'Are you sure?' } %></td>
           </tr>
         <% end %>
       <% end %>
@@ -67,8 +68,8 @@
             <td><%= lec.start_time %></td>
             <td><%= lec.end_time %></td>
             <td>
-              <%= link_to 'Edit', courses_path, class: "btn btn-info" %>
-              <%= link_to 'Remove', courses_path, class: "btn btn-danger" %>
+              <%= link_to 'Edit', edit_lectures_path(lec), class: "btn btn-info" %>
+              <%= link_to 'Remove', lec, class: "btn btn-danger" , method: :delete, data: { confirm: 'Are you sure?' } %>
             </td>
           </tr>
         <% end %>
@@ -76,7 +77,7 @@
     </tbody>
   </table>
 
-  <%= link_to 'New Lecture Time', courses_path, class: "btn btn-primary" %>
+  <%= link_to 'New Lecture Time', new_lecture_path, class: "btn btn-primary" %>
 
   <br>
 
