@@ -5,10 +5,6 @@ class TutorialsController < ApplicationController
   # selected the slot but did not rank them yet)
   NO_RANK = 999
 
-  def initUser
-    @user = User.find_by(id: session[:user_id])
-  end
-
   def view
   end
 

@@ -11,9 +11,15 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  protected
   def authorize_admin
     unless User.find_by(id: session[:user_id]).admin?
       redirect_to login_url, notice: "You do not have admin privileges."
     end
+  end
+
+  protected
+  def initUser
+    @user = User.find_by(id: session[:user_id])
   end
 end
