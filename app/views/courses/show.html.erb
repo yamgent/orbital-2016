@@ -127,8 +127,8 @@
             <% end %>
 
             <td>
-              <%= link_to 'Edit', courses_path, class: "btn btn-info" %>
-              <%= link_to 'Remove', courses_path, class: "btn btn-danger" %>
+              <%= link_to 'Edit', edit_tutorial_path(tut), class: "btn btn-info" %>
+              <%= link_to 'Remove', tut, class: "btn btn-danger" , method: :delete, data: { confirm: 'Are you sure?' } %>
             </td>
           </tr>
         <% end %>
@@ -136,7 +136,7 @@
     </tbody>
   </table>
 
-  <%= link_to 'New Tutorial Time', courses_path, class: "btn btn-primary" %>
+  <%= link_to 'New Tutorial Time', new_tutorial_path, class: "btn btn-primary" %>
   <br>
 
   <hr>

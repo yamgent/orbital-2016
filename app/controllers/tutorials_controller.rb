@@ -62,4 +62,32 @@ class TutorialsController < ApplicationController
     # TODO: Failure message (if applicable)
     redirect_to tutorials_view_url
   end
+
+  # GET /tutorials
+  def index
+    # assume we are here for bidding, not for database management
+    redirect_to tutorials_view_url
+  end
+
+  before_action :authorize_admin, only: [:new, :edit, :create, :update, :destroy]
+
+  # GET /tutorials/new
+  def new
+  end
+
+  # GET /tutorials/edit/1
+  def edit
+  end
+
+  # POST /tutorials
+  def create
+  end
+
+  # PATCH/PUT /tutorials/1
+  def update
+  end
+
+  # DELETE /tutorials/1
+  def destroy
+  end
 end

@@ -30,9 +30,11 @@ Rails.application.routes.draw do
     delete 'logout' => :destroy
   end
 
+  # for database management purposes
   resources :users
   resources :courses
   resources :lectures
+  resources :tutorials
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
