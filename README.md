@@ -11,7 +11,7 @@ codebase runs on Ruby on Rails.
 3. Run `rake db:migrate`
 4. Login to Rails' console with `rails console`, and type the following:
 ```
-user = User.create(matricNo: "admin2", password: "your_password_here", admin: true)
+user = User.create(matricNo: "admin", password: "your_password_here", admin: true)
 ```
 
 ### Starting the Server
