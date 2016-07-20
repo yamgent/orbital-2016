@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.find_by(matricno: params[:matricno])
+    user = User.find_by(matricNo: params[:matricNo])
     if user and user.authenticate(params[:password])
       session[:user_id] = user.id
       session[:user_matricNo] = user.matricNo
