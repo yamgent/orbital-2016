@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20160719034722) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "courses", force: :cascade do |t|
     t.string   "name"
     t.string   "code"
@@ -30,7 +33,7 @@ ActiveRecord::Schema.define(version: 20160719034722) do
     t.string   "group_number"
   end
 
-  add_index "lectures", ["course_id"], name: "index_lectures_on_course_id"
+  add_index "lectures", ["course_id"], name: "index_lectures_on_course_id", using: :btree
 
   create_table "tutorials", force: :cascade do |t|
     t.integer  "course_id"
@@ -47,7 +50,7 @@ ActiveRecord::Schema.define(version: 20160719034722) do
     t.time     "second_end_time"
   end
 
-  add_index "tutorials", ["course_id"], name: "index_tutorials_on_course_id"
+  add_index "tutorials", ["course_id"], name: "index_tutorials_on_course_id", using: :btree
 
   create_table "user_course_selections", force: :cascade do |t|
     t.integer  "user_id"
@@ -56,8 +59,8 @@ ActiveRecord::Schema.define(version: 20160719034722) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "user_course_selections", ["course_id"], name: "index_user_course_selections_on_course_id"
-  add_index "user_course_selections", ["user_id"], name: "index_user_course_selections_on_user_id"
+  add_index "user_course_selections", ["course_id"], name: "index_user_course_selections_on_course_id", using: :btree
+  add_index "user_course_selections", ["user_id"], name: "index_user_course_selections_on_user_id", using: :btree
 
   create_table "user_tutorial_selections", force: :cascade do |t|
     t.integer  "user_id"
@@ -67,8 +70,8 @@ ActiveRecord::Schema.define(version: 20160719034722) do
     t.datetime "updated_at",  null: false
   end
 
-  add_index "user_tutorial_selections", ["tutorial_id"], name: "index_user_tutorial_selections_on_tutorial_id"
-  add_index "user_tutorial_selections", ["user_id"], name: "index_user_tutorial_selections_on_user_id"
+  add_index "user_tutorial_selections", ["tutorial_id"], name: "index_user_tutorial_selections_on_tutorial_id", using: :btree
+  add_index "user_tutorial_selections", ["user_id"], name: "index_user_tutorial_selections_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "matricNo"
