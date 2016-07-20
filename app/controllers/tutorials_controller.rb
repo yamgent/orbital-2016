@@ -69,25 +69,78 @@ class TutorialsController < ApplicationController
     redirect_to tutorials_view_url
   end
 
+  before_action :set_tutorial, only: [:edit, :update, :destroy]
   before_action :authorize_admin, only: [:new, :edit, :create, :update, :destroy]
 
   # GET /tutorials/new
   def new
+    course_id = params[:course_id]
+    if course_id.nil?
+      course_id = Course.first.id
+    end
+
+    @edit_course = Course.find(course_id)
+    @edit_tutorial = Tutorial.new
   end
 
   # GET /tutorials/edit/1
   def edit
+    @edit_course = Course.find(@edit_tutorial.course_id)
   end
 
   # POST /tutorials
   def create
+    @edit_tutorial = Tutorial.new(tutorial_params)
+    @edit_course = Course.find(@edit_tutorial.course_id);
+
+    respond_to do |format|
+      if @edit_tutorial.save
+        format.html { redirect_to @edit_course, notice: 'Tutorial was successfully created.' }
+        format.json { render :show, status: :created, location: @edit_course }
+      else
+        format.html { render :new }
+        format.json { render json: @edit_tutorial.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   # PATCH/PUT /tutorials/1
   def update
+    @edit_course = Course.find(@edit_tutorial.course_id);
+
+    respond_to do |format|
+      if @edit_tutorial.update(tutorial_params)
+        format.html { redirect_to @edit_course, notice: 'Tutorial was successfully updated.' }
+        format.json { render :show, status: :ok, location: @edit_course }
+      else
+        format.html { render :edit }
+        format.json { render json: @edit_tutorial.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   # DELETE /tutorials/1
   def destroy
+    @edit_course = Course.find(@edit_tutorial.course_id);
+
+    @edit_tutorial.destroy
+    respond_to do |format|
+      format.html { redirect_to @edit_course, notice: 'Tutorial was successfully destroyed.' }
+      format.json { head :no_content }
+    end
   end
+
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_tutorial
+      @edit_tutorial = Tutorial.find(params[:id])
+    end
+
+  private
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def tutorial_params
+      params.require(:tutorial).permit(:course_id, :day, :start_time, :end_time,
+          :group_number, :odd_even, :has_second_tutorial, :second_day,
+          :second_start_time, :second_end_time)
+    end
 end

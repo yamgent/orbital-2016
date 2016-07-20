@@ -1,0 +1,59 @@
+<%= form_for(@edit_tutorial) do |f| %>
+  <%= render partial: "layouts/db_record_errors", locals: { current_record: @edit_tutorial } %>
+
+  <div class="field">
+    <%= f.hidden_field :course_id, value: @edit_course.id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :group_number %><br>
+    <%= f.text_field :group_number %>
+  </div>
+  <div class="field">
+    <%= f.label :odd_even %><br>
+    <% #TODO: Don't hard code this! %>
+    <%= f.select :odd_even, options_for_select(
+      [
+        ["Both", "both"],
+        ["Odd", "odd"],
+        ["Even", "even"]
+      ],
+      selected: @edit_tutorial.odd_even) %>
+  </div>
+  <div class="field">
+    <%= f.label :day %><br>
+    <%= f.select :day, options_for_select(getAllDays(), selected: @edit_tutorial.day) %>
+  </div>
+  <div class="field">
+    <%= f.label :start_time %><br>
+    <%= f.text_field :start_time, value: getHourAndMin(@edit_tutorial.start_time) %>
+  </div>
+  <div class="field">
+    <%= f.label :end_time %><br>
+    <%= f.text_field :end_time, value: getHourAndMin(@edit_tutorial.end_time) %>
+  </div>
+  <div class="field">
+    <%= f.label :has_second_tutorial %><br>
+    <%= f.check_box :has_second_tutorial %>
+  </div>
+
+  <p>The following fields are only meaningful if has_second_tutorial=true:</p>
+  <div class="field">
+    <%= f.label :second_day %><br>
+    <%= f.select :second_day, options_for_select(getAllDays(), selected: @edit_tutorial.second_day) %>
+  </div>
+  <div class="field">
+    <%= f.label :second_start_time %><br>
+    <%= f.text_field :second_start_time, value: getHourAndMin(@edit_tutorial.second_start_time) %>
+  </div>
+  <div class="field">
+    <%= f.label :second_end_time %><br>
+    <%= f.text_field :second_end_time, value: getHourAndMin(@edit_tutorial.second_end_time) %>
+  </div>
+
+  <br>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+  <hr>
+<% end %>
