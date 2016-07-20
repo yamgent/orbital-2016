@@ -23,15 +23,15 @@ class LecturesController < ApplicationController
     @edit_lecture = Lecture.new(lecture_params)
     @edit_course = Course.find(@edit_lecture.course_id);
 
-  respond_to do |format|
-    if @edit_lecture.save
-      format.html { redirect_to @edit_course, notice: 'Lecture was successfully created.' }
-      format.json { render :show, status: :created, location: @edit_course }
-    else
-      format.html { render :new }
-      format.json { render json: @edit_lecture.errors, status: :unprocessable_entity }
+    respond_to do |format|
+      if @edit_lecture.save
+        format.html { redirect_to @edit_course, notice: 'Lecture was successfully created.' }
+        format.json { render :show, status: :created, location: @edit_course }
+      else
+        format.html { render :new }
+        format.json { render json: @edit_lecture.errors, status: :unprocessable_entity }
+      end
     end
-  end
   end
 
   # PATCH/PUT /courses/1
@@ -55,7 +55,7 @@ class LecturesController < ApplicationController
 
     @edit_lecture.destroy
     respond_to do |format|
-      format.html { redirect_to @edit_course, notice: 'Leture was successfully destroyed.' }
+      format.html { redirect_to @edit_course, notice: 'Lecture was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
