@@ -45,10 +45,15 @@ class CoursesController < ApplicationController
   # DELETE /courses/1
   # DELETE /courses/1.json
   def destroy
-    @edit_course.destroy
     respond_to do |format|
-      format.html { redirect_to courses_url, notice: 'Course was successfully destroyed.' }
-      format.json { head :no_content }
+      if @edit_course.destroy
+        format.html { redirect_to courses_url, notice: 'Course was successfully destroyed.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to courses_url,
+          alert: 'Illegal Operation: Ensure that all users are no longer enrolled, and all lectures/tutorials are deleted.' }
+        format.json { head :no_content }
+      end
     end
   end
 
