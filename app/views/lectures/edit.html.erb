@@ -1,2 +1,7 @@
-<h1>Lectures#edit</h1>
-<p>Find me in app/views/lectures/edit.html.erb</p>
+<div class="container">
+  <h1>Edit Lecture for Course '<%= @edit_course.name %>'</h1>
+  <%= render 'form' %>
+
+  <br>
+  <%= link_to 'Discard Changes', @edit_course, class: "btn btn-danger" %>
+</div>

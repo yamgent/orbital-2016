@@ -20,7 +20,24 @@ module ApplicationHelper
     return "UNKNOWN_DATE"
   end
 
+  # used by lectures/_form.html.erb and
+  # tutorials/_form.html.erb. This is
+  # for generating the combobox.
+  def getAllDays()
+    array = [];
+
+    (0..6).each do |d|
+      array.push([getDay(d), d])
+    end
+
+    return array
+  end
+
   def getHourAndMin(dateTime)
+    if dateTime.nil?
+      return ""
+    end
+
     return dateTime.strftime("%H:%M")
   end
 

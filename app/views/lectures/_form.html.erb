@@ -1,0 +1,29 @@
+<%= form_for(@edit_lecture) do |f| %>
+  <%= render partial: "layouts/db_record_errors", locals: { current_record: @edit_lecture } %>
+
+  <div class="field">
+    <%= f.hidden_field :course_id, value: @edit_course.id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :group_number %><br>
+    <%= f.text_field :group_number %>
+  </div>
+  <div class="field">
+    <%= f.label :day %><br>
+    <%= f.select :day, options_for_select(getAllDays(), selected: @edit_lecture.day) %>
+  </div>
+  <div class="field">
+    <%= f.label :start_time %><br>
+    <%= f.text_field :start_time, value: getHourAndMin(@edit_lecture.start_time) %>
+  </div>
+  <div class="field">
+    <%= f.label :end_time %><br>
+    <%= f.text_field :end_time, value: getHourAndMin(@edit_lecture.end_time) %>
+  </div>
+  <br>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+  <hr>
+<% end %>

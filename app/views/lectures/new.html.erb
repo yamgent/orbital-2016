@@ -1,2 +1,7 @@
-<h1>Lectures#new</h1>
-<p>Find me in app/views/lectures/new.html.erb</p>
+<div class="container">
+  <h1>New Lecture for Course '<%= @edit_course.name %>'</h1>
+  <%= render 'form' %>
+
+  <br>
+  <%= link_to 'Cancel', @edit_course, class: "btn btn-danger" %>
+</div>

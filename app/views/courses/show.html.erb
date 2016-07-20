@@ -65,10 +65,10 @@
           <tr>
             <td><%= lec.group_number %></td>
             <td><%= getDay(lec.day) %></td>
-            <td><%= lec.start_time %></td>
-            <td><%= lec.end_time %></td>
+            <td><%= getHourAndMin(lec.start_time) %></td>
+            <td><%= getHourAndMin(lec.end_time) %></td>
             <td>
-              <%= link_to 'Edit', edit_lectures_path(lec), class: "btn btn-info" %>
+              <%= link_to 'Edit', edit_lecture_path(lec), class: "btn btn-info" %>
               <%= link_to 'Remove', lec, class: "btn btn-danger" , method: :delete, data: { confirm: 'Are you sure?' } %>
             </td>
           </tr>
@@ -115,13 +115,13 @@
               <% end %>
             </td>
             <td><%= getDay(tut.day) %></td>
-            <td><%= tut.start_time %></td>
-            <td><%= tut.end_time %></td>
+            <td><%= getHourAndMin(tut.start_time) %></td>
+            <td><%= getHourAndMin(tut.end_time) %></td>
 
             <% if tut.has_second_tutorial? %>%>
               <td><%= getDay(tut.second_day) %></td>
-              <td><%= tut.second_start_time %></td>
-              <td><%= tut.second_end_time %></td>
+              <td><%= getHourAndMin(tut.second_start_time) %></td>
+              <td><%= getHourAndMin(tut.second_end_time) %></td>
             <% else %>
               <td colspan="3">[No 2nd slot]</td>
             <% end %>
