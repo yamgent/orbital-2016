@@ -143,9 +143,18 @@ $(document).ready(function()
       tutorial_rank_windowResized();
     });
 
-    $(window).bind('beforeunload', function(){
-      if (changesConfirmed === false)
-        // TODO: custom message doesn't work on Chrome??
+    // completely broken, sometimes message will
+    // appear, sometime it doesn't. :(
+    /*
+    $(window).on('beforeunload', function(){
+      if (changesConfirmed == false)
+        // custom messages no longer work. however,
+        // we still have to return non-null so that
+        // the browser will ask the user before leaving
         return 'You have not confirm your rank selection!';
+      else {
+        return null;
+      }
     });
+    */
 });
