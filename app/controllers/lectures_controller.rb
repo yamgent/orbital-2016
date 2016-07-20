@@ -1,15 +1,21 @@
 class LecturesController < ApplicationController
   before_action :set_lecture, only: [:edit, :update, :destroy]
-  before_action :set_course, only: [:new, :edit]
   before_action :authorize_admin, :initUser
 
   # GET /lectures/new
   def new
+    course_id = params[:course_id]
+    if course_id.nil?
+      course_id = Course.first.id
+    end
+
+    @edit_course = Course.find(course_id)
     @edit_lecture = Lecture.new
   end
 
   # GET /lectures/edit/1
   def edit
+    @edit_course = Course.find(@edit_lecture.course_id)
   end
 
   # POST /lectures
@@ -59,17 +65,6 @@ class LecturesController < ApplicationController
     def set_lecture
       @edit_lecture = Lecture.find(params[:id])
     end
-
-  private
-    def set_course
-      course_id = params[:course_id]
-      if course_id.nil?
-        course_id = Course.first.id
-      end
-
-      @edit_course = Course.find(course_id)
-    end
-
 
   private
     # Never trust parameters from the scary internet, only allow the white list through.
