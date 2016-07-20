@@ -1,6 +1,6 @@
 <%= javascript_tag do %>
 
-  <% @user.tutorials.each do |tut| %>
+  <% @current_user.tutorials.each do |tut| %>
     Timetable().initPeriod(
       <%= tut.id %>,
       <%= tut.day %>,

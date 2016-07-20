@@ -22,7 +22,7 @@
         </label>
       </div>
 
-      <% @user.courses.each do |c| %>
+      <% @current_user.courses.each do |c| %>
       <h2><%= c.code %> - <%= c.name %></h2>
       <div class="card-columns">
         <% c.tutorials.each do |tut| %>
@@ -73,7 +73,7 @@
 
 <%= javascript_tag do %> // show initial selections
   $(function() {
-    <% @user.tutorials.each do |tut| %>
+    <% @current_user.tutorials.each do |tut| %>
       $(".card[tutorialid='<%= tut.id %>']").addClass("selected").data("selected", 1);
     <% end %>
   });

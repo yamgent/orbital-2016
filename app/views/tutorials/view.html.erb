@@ -35,7 +35,7 @@
         </p>
       <% end %>
 
-      <% if @user.user_tutorial_selections.exists?(rank: TutorialsController::NO_RANK) %>
+      <% if @current_user.user_tutorial_selections.exists?(rank: TutorialsController::NO_RANK) %>
         <div class="alert alert-danger" role="alert">
           <strong>You have not ranked some of your tutorial slots.</strong>
           They appear as '???' rank for those slots.
@@ -58,14 +58,14 @@
           </tr>
         </thead>
         <tbody>
-          <% if @user.tutorials.size == 0 %>
+          <% if @current_user.tutorials.size == 0 %>
           <tr>
             <td colspan="5">You did not select any preferences yet.</td>
           </tr>
           <% end %>
 
           <% row = 1 %>
-          <% @user.user_tutorial_selections.sort_by(&:rank).each do |selection| %>
+          <% @current_user.user_tutorial_selections.sort_by(&:rank).each do |selection| %>
           <tr tutorialid="<%= selection.tutorial.id %>">
             <th scope="row">
               <% if selection.rank == TutorialsController::NO_RANK %>

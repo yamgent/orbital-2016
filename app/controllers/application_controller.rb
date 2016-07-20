@@ -20,6 +20,6 @@ class ApplicationController < ActionController::Base
 
   protected
   def initUser
-    @user = User.find_by(id: session[:user_id])
+    @current_user = User.find_by(id: session[:user_id])
   end
 end

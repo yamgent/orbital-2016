@@ -28,7 +28,7 @@
         </thead>
 
         <tbody>
-          <% @user.user_tutorial_selections.sort_by(&:rank).each do |selection| %>
+          <% @current_user.user_tutorial_selections.sort_by(&:rank).each do |selection| %>
           <tr selectionid="<%= selection.id %>" tutorialid="<%= selection.tutorial.id %>">
             <th scope="row">
               <span class="rank_num">###RANK###</span>

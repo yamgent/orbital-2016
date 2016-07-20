@@ -19,11 +19,11 @@ class TutorialsController < ApplicationController
         next
       end
 
-      record = UserTutorialSelection.find_by(user_id: @user.id, tutorial_id: tut_id)
+      record = UserTutorialSelection.find_by(user_id: @current_user.id, tutorial_id: tut_id)
       # add record if not found
       if record == nil
         record = UserTutorialSelection.new(
-          user_id: @user.id,
+          user_id: @current_user.id,
           tutorial_id: tut_id,
           rank: NO_RANK,
         )
@@ -51,7 +51,7 @@ class TutorialsController < ApplicationController
         # do validation to prevent modifying
         # records that doesn't belong to user!!!
         # (This is for security reason)
-        if record.user_id == @user.id
+        if record.user_id == @current_user.id
             record.rank = rank
             record.save()
             rank += 1
