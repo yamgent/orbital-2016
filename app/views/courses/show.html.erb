@@ -1,12 +1,14 @@
 <div class="container">
   <h1>Viewing Course</h1>
 
+  <!-- Info -->
   <h2>Basic Information</h2>
   <p><strong>Code:</strong> <%= @edit_course.code %></p>
   <p><strong>Name:</strong> <%= @edit_course.name %></p>
 
   <%= link_to 'Edit Course', edit_course_path(@edit_course), class: "btn btn-primary" %>
 
+  <!-- Enrolled students -->
   <hr>
   <h2>Enrolled Students</h2>
   <table class="table">
@@ -18,7 +20,7 @@
 
     <tbody>
       <% if @edit_enrolled.empty? %>
-        <tr><td>No students are enrolled into the course.</td></tr>
+        <tr><td colspan="2">No students are enrolled into the course.</td></tr>
       <% else %>
         <% @edit_enrolled.each do |student| %>
           <tr>
@@ -39,6 +41,101 @@
     <%= submit_tag "Add", class:"btn btn-primary" %>
   <% end %>
 
+  <br>
+
+  <!-- Lectures -->
+  <hr>
+  <h2>Lectures</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Code</th>
+        <th>Day</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>(Actions)</th>
+    </thead>
+
+    <tbody>
+      <% if @edit_course.lectures.empty? %>
+        <tr><td colspan="5">There is no lecture for this course.</td></tr>
+      <% else %>
+        <% @edit_course.lectures.each do |lec| %>
+          <tr>
+            <td><%= lec.group_number %></td>
+            <td><%= getDay(lec.day) %></td>
+            <td><%= lec.start_time %></td>
+            <td><%= lec.end_time %></td>
+            <td>
+              <%= link_to 'Edit', courses_path, class: "btn btn-info" %>
+              <%= link_to 'Remove', courses_path, class: "btn btn-danger" %>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= link_to 'New Lecture Time', courses_path, class: "btn btn-primary" %>
+
+  <br>
+
+  <!-- Tutorials -->
+  <hr>
+  <h2>Tutorials</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Code</th>
+        <th>Odd/Even</th>
+        <th>Day</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Day (2nd Slot)</th>
+        <th>Start Time (2nd Slot)</th>
+        <th>End Time (2nd Slot)</th>
+        <th>(Actions)</th>
+    </thead>
+
+    <tbody>
+      <% if @edit_course.tutorials.empty? %>
+        <tr><td colspan="9">There is no tutorial for this course.</td></tr>
+      <% else %>
+        <% @edit_course.tutorials.each do |tut| %>
+          <tr>
+            <td><%= tut.group_number %></td>
+            <td>
+              <% if tut.odd? %>
+                Odd
+              <% elsif tut.even? %>
+                Even
+              <% else %>
+                Both
+              <% end %>
+            </td>
+            <td><%= getDay(tut.day) %></td>
+            <td><%= tut.start_time %></td>
+            <td><%= tut.end_time %></td>
+
+            <% if tut.has_second_tutorial? %>%>
+              <td><%= getDay(tut.second_day) %></td>
+              <td><%= tut.second_start_time %></td>
+              <td><%= tut.second_end_time %></td>
+            <% else %>
+              <td colspan="3">[No 2nd slot]</td>
+            <% end %>
+
+            <td>
+              <%= link_to 'Edit', courses_path, class: "btn btn-info" %>
+              <%= link_to 'Remove', courses_path, class: "btn btn-danger" %>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= link_to 'New Tutorial Time', courses_path, class: "btn btn-primary" %>
   <br>
 
   <hr>
