@@ -29,7 +29,7 @@
             <td><%= student.matricNo %></td>
             <td><%= link_to 'Remove',
              { action: :remove_student, params: { student: student.id } },
-             method: :post,
+             method: :delete,
              class: "btn btn-danger",
              data: { confirm: 'Are you sure? WARNING: All tutorial slots for this student will be dropped!' } %></td>
           </tr>

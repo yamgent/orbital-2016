@@ -61,6 +61,7 @@ class CoursesController < ApplicationController
     @edit_enrolled = @edit_course.users
   end
 
+  # POST /courses/add_student/:course_id?student=id
   def add_student
     courseId = params[:id]
     studentId = params[:student]
@@ -83,6 +84,7 @@ class CoursesController < ApplicationController
     end
   end
 
+  # DELETE/courses/remove_student/:course_id?student=id
   def remove_student
     courseId = params[:id]
     studentId = params[:student]
