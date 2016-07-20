@@ -1,2 +1,27 @@
-<h1>Courses#index</h1>
-<p>Find me in app/views/courses/index.html.erb</p>
+<div class="container">
+  <h1>Listing Courses</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>(Actions)</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @edit_all_courses.each do |course| %>
+        <tr>
+          <td>[Code: <%= course.code %>] <%= course.name %></td>
+          <td>
+            <%= link_to 'Show', course, class: "btn btn-primary" %>
+            <%= link_to 'Edit', edit_course_path(course), class: "btn btn-info" %>
+            <%= link_to 'Destroy', course, class: "btn btn-danger" , method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <hr>
+  <%= link_to 'New Course', new_course_path, class: "btn btn-primary" %>
+</div>

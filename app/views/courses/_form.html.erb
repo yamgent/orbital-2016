@@ -1,0 +1,17 @@
+<%= form_for(@edit_course) do |f| %>
+  <%= render partial: "layouts/db_record_errors", locals: { current_record: @edit_course } %>
+
+  <div class="field">
+    <%= f.label :code %><br>
+    <%= f.text_field :code %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <br>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+  <hr>
+<% end %>
