@@ -89,6 +89,7 @@ class CoursesController < ApplicationController
 
     record = find_student(courseId, studentId)
     if record
+      also_delete_tutorial_selections(studentId)
       record.delete
     end
 
@@ -100,6 +101,24 @@ class CoursesController < ApplicationController
 
   def edit
   end
+
+  private
+    def also_delete_tutorial_selections(student_id)
+      # Wang Leng: This is probably my fault. UserTutorialSelection
+      # should be related to UserCourseSelection so that when the
+      # user drops the course, it also drops all tutorial selections.
+      # However, this relationship does not exist in the database,
+      # and the changes required is more than just merely adding
+      # a single foreign key, therefore, we will have to do it
+      # manually by executing this method.
+
+      @edit_course.tutorials.each do |tut|
+        tut_selection = UserTutorialSelection.find_by(user_id: student_id, tutorial_id: tut.id)
+        if tut_selection.nil? == false
+          tut_selection.delete
+        end
+      end
+    end
 
   private
     # Use callbacks to share common setup or constraints between actions.
