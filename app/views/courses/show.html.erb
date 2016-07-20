@@ -31,7 +31,7 @@
              { action: :remove_student, params: { student: student.id } },
              method: :post,
              class: "btn btn-danger",
-             data: { confirm: 'Are you sure?' } %></td>
+             data: { confirm: 'Are you sure? WARNING: All tutorial slots for this student will be dropped!' } %></td>
           </tr>
         <% end %>
       <% end %>
@@ -71,7 +71,8 @@
             <td><%= getHourAndMin(lec.end_time) %></td>
             <td>
               <%= link_to 'Edit', edit_lecture_path(lec), class: "btn btn-info" %>
-              <%= link_to 'Remove', lec, class: "btn btn-danger" , method: :delete, data: { confirm: 'Are you sure?' } %>
+              <%= link_to 'Remove', lec, class: "btn btn-danger" , method: :delete,
+                data: { confirm: 'Are you sure?' } %>
             </td>
           </tr>
         <% end %>
@@ -132,7 +133,8 @@
 
             <td>
               <%= link_to 'Edit', edit_tutorial_path(tut), class: "btn btn-info" %>
-              <%= link_to 'Remove', tut, class: "btn btn-danger" , method: :delete, data: { confirm: 'Are you sure?' } %>
+              <%= link_to 'Remove', tut, class: "btn btn-danger" , method: :delete,
+                data: { confirm: 'Are you sure? WARNING: All students in this tutorial slot will be dropped!' } %>
             </td>
           </tr>
         <% end %>
