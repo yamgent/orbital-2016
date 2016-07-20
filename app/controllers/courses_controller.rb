@@ -77,7 +77,7 @@ class CoursesController < ApplicationController
           format.html { redirect_to @edit_course, notice: 'Student added successfully' }
           format.json { head :no_content }
         else
-          format.html { redirect_to @edit_course }  # TODO: Does not reveal error message!
+          format.html { redirect_to @edit_course, alert: 'Fail to add student, errors' + @edit_course.errors.full_messages }
           format.json { render json: @edit_course.errors, status: :unprocessable_entity }
         end
       end

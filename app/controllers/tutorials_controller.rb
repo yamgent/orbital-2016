@@ -33,7 +33,6 @@ class TutorialsController < ApplicationController
       end
     end
 
-    # TODO: Failure message (if applicable)
     redirect_to tutorials_rank_url
   end
 
@@ -58,7 +57,6 @@ class TutorialsController < ApplicationController
         end
     end
 
-    # TODO: Failure message (if applicable)
     redirect_to tutorials_view_url
   end
 
