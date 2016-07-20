@@ -1,5 +1,6 @@
 class CoursesController < ApplicationController
-  before_action :set_course, only: [:show, :edit, :update, :destroy]
+  before_action :set_course, only: [:show, :edit, :update, :destroy,
+                                      :add_student, :remove_student]
   before_action :authorize_admin, :initUser
 
   # GET /courses
@@ -52,6 +53,44 @@ class CoursesController < ApplicationController
   end
 
   def show
+    @edit_enrolled = @edit_course.users
+  end
+
+  def add_student
+    courseId = params[:id]
+    studentId = params[:student]
+
+    respond_to do |format|
+      if UserCourseSelection.find_by(course_id: courseId, user_id: studentId)
+        format.html { redirect_to @edit_course, notice: 'This student is already in the course!' }
+        format.json { head :no_content }
+      else
+        record = UserCourseSelection.new(course_id: courseId, user_id: studentId)
+
+        if record.save
+          format.html { redirect_to @edit_course, notice: 'Student added successfully' }
+          format.json { head :no_content }
+        else
+          format.html { redirect_to @edit_course }  # TODO: Does not reveal error message!
+          format.json { render json: @edit_course.errors, status: :unprocessable_entity }
+        end
+      end
+    end
+  end
+
+  def remove_student
+    courseId = params[:id]
+    studentId = params[:student]
+
+    record = find_student(courseId, studentId)
+    if record
+      record.delete
+    end
+
+    respond_to do |format|
+      format.html { redirect_to @edit_course, notice: 'Student removed' }
+      format.json { head :no_content }
+    end
   end
 
   def edit
@@ -63,6 +102,12 @@ class CoursesController < ApplicationController
       @edit_course = Course.find(params[:id])
     end
 
+  private
+    def find_student(courseId, studentId)
+      return UserCourseSelection.find_by(course_id: courseId, user_id: studentId)
+    end
+
+  private
     # Never trust parameters from the scary internet, only allow the white list through.
     def course_params
       params.require(:course).permit(:name, :code)

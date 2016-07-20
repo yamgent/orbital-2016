@@ -5,7 +5,43 @@
   <p><strong>Code:</strong> <%= @edit_course.code %></p>
   <p><strong>Name:</strong> <%= @edit_course.name %></p>
 
-  <br>
   <%= link_to 'Edit Course', edit_course_path(@edit_course), class: "btn btn-primary" %>
+
+  <hr>
+  <h2>Enrolled Students</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Matric Number</th>
+        <th>(Actions)</th>
+    </thead>
+
+    <tbody>
+      <% if @edit_enrolled.empty? %>
+        <tr><td>No students are enrolled into the course.</td></tr>
+      <% else %>
+        <% @edit_enrolled.each do |student| %>
+          <tr>
+            <td><%= student.matricNo %></td>
+            <td><%= link_to 'Remove',
+             { action: :remove_student, params: { student: student.id } },
+             method: :post,
+             class: "btn btn-danger" %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= form_tag({ action: :add_student, id: @edit_course.id }, method: :post) do %>
+    Add student to course:
+    <%= select_tag "student", options_from_collection_for_select(User.all, :id, :matricNo) %>
+    <%= submit_tag "Add", class:"btn btn-primary" %>
+  <% end %>
+
+  <br>
+
+  <hr>
+  <br>
   <%= link_to 'Return to Courses List', courses_path, class: "btn btn-primary" %>
 </div>

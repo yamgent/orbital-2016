@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  post 'courses/remove_student/:id', to: 'courses#remove_student'
+  post 'courses/add_student/:id', to: 'courses#add_student'
+
   get 'docs/tut_ballot_tips'
 
   get 'docs/tut_step1'
