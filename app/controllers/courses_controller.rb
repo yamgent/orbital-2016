@@ -62,7 +62,7 @@ class CoursesController < ApplicationController
 
     respond_to do |format|
       if UserCourseSelection.find_by(course_id: courseId, user_id: studentId)
-        format.html { redirect_to @edit_course, notice: 'This student is already in the course!' }
+        format.html { redirect_to @edit_course, alert: 'This student is already in the course!' }
         format.json { head :no_content }
       else
         record = UserCourseSelection.new(course_id: courseId, user_id: studentId)

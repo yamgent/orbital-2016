@@ -14,13 +14,13 @@ class SessionsController < ApplicationController
       # Redirect to tutorials/view
       redirect_to tutorials_view_url
     else
-      redirect_to login_url, alert:"Invalid Username or Password"
+      redirect_to login_url, alert: "Invalid Username or Password"
     end
   end
 
   def destroy
     session[:user_id] = nil
     session[:user_matricNo] = nil
-    redirect_to login_url, alert:"Successfully logged out"
+    redirect_to login_url, notice: "Successfully logged out"
   end
 end
