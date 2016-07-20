@@ -17,6 +17,8 @@
 <body>
   <%= render 'layouts/mobile_detect' %>
   <%= render 'layouts/banner' unless session[:user_id] == nil %>
+  <%= render 'layouts/notice' %>
+
   <%= yield %>
 </body>
 

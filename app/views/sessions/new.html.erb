@@ -3,10 +3,6 @@
 <div class="container">
   <br>
 
-  <% if flash[:alert] %>
-  <div id="notice" class="alert alert-info" role="alert"><%= flash[:alert] %></div>
-  <% end %>
-
   <div class="row">
     <div class="col-md-6">
       <%= link_to image_tag("logo.png", :size => "131x60", :alt => "CORS logo"), root_path %>
