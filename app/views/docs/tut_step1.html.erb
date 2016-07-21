@@ -1,39 +1,55 @@
 <div class="container">
   <br>
-  <h2>Step 1 of 2: Selecting tutorial slots to ballot</h2>
+  <h1>Step 1 of 2: Selecting tutorial slots to ballot</h1>
+
+  <h2>Desktop</h2>
+
+  <br>
+  <h3>Overview</h3>
+  <%= create_help_images("docs/step1_01.png") %><br>
   <p>
   	In step 1, select the tutorial slots that you wish to ballot for,
-  	<br>by clicking on the options on the left column.
-  	<br>Selected options will turn green and show up on the timetable preview.
-  	<br>You will rank your selected options in the next step.
+  	by clicking on the corresponding boxes on the left column.
   </p>
-  <br>
+  <p>
+    Selected slots will turn green and show up on the timetable preview.
+  	You will rank your selected options in the next step.
+  </p>
 
-  <h2>Show slots that clashes with lectures</h2>
+  <br>
+  <h3>Show slots that clashes with lectures</h3>
   <p>
   	When the checkbox "Show slots that clashes with lectures" is selected,
-  	<br>non-selectable tutorial slot options will be shown in red.
-  	<br>These tutorial slots may not be selected as they clash with your lecture slots.
-  	<br>
-  	<br>You may deselect this checkbox to hide non-selectable tutorial slot options and reduce clutter.
+  	such non-selectable clashing tutorial slots will be shown in red.
   </p>
-  <br>
+  <%= create_help_images("docs/step1_02.png") %><br>
+  <p>
+  	These tutorial slots may not be selected as they clash with your <i>lecture</i> slots.
+  	You may deselect this checkbox to hide non-selectable tutorial slots and reduce clutter.
+  </p>
 
-  <h2>Your timetable preview</h2>
+  <br>
+  <h3>Your timetable preview</h3>
+  <%= create_help_images("docs/step1_03.png") %><br>
   <p>
   	When you hover your cursor over the tutorial slot options,
-  	<br>these slots will appear in your timetable preview on the right column.
-  	<br>Use this visualisation to make informed choices.
-  	<br>
-  	<br>Orange slots indicate Lecture slots.
-  	<br>Red slots indicate non-selectable tutorial slots that clashed with a Lecture.
-  	<br>Blue slots indicate the options being highlighted.
+  	these slots will appear in your timetable preview on the right column.
   </p>
-  <br>
+  <p>
+  	Use this visualisation to make informed choices for your balloting needs.
+  </p>
+  <%= create_help_images("docs/step1_04.png") %><br>
+  <ul>
+  	<li>Orange slots indicate <i>lecture</i> slots.</li>
+  	<li>Red slots indicate non-selectable tutorial slots that clashed with a <i>lecture</i>.</li>
+  	<li>Blue slots indicate the tutorial slot being highlighted.</li>
+  </ul>
 
-  <h2>Finishing step 1</h2>
+  <br>
+  <h3>Finishing step 1</h3>
   <p>
   	When you have selected all your preferred tutorial slots to ballot for,
-  	<br>proceed on to step 2 by clicking on the "Next" button at the top.
+  	proceed on to step 2 by clicking on the "Next" button at the top.
   </p>
+  <%= create_help_images("docs/step1_05.png") %>
 </div>
