@@ -44,4 +44,9 @@ module ApplicationHelper
   def getHourAndMinAsInt(dateTime)
     return dateTime.strftime("%H%M").to_i
   end
+
+  # for the docs/*.html pages
+  def create_help_images(image_url)
+    return link_to image_tag(image_url, class: "img-fluid img-thumbnail"), image_path(image_url)
+  end
 end
