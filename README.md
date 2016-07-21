@@ -8,7 +8,7 @@ codebase runs on Ruby on Rails.
   - https://gorails.com/setup/ubuntu/16.04
   - For database, install postgreSQL
 2. Run `bundle install`
-3. Run `rake db:migrate`
+3. Run `rake db:create`
 4. Login to Rails' console with `rails console`, and type the following:
 ```
 user = User.create(matricNo: "admin", password: "your_password_here", admin: true)
