@@ -370,6 +370,7 @@ function windowResized()
 
 	var timetable = $("#timetable-preview");
 	var extra_space = $("#mobile-timetable-space");
+	var timetable_affix = $("#timetable-affix");
 
 	if (mobile)
 	{
@@ -381,11 +382,18 @@ function windowResized()
 		// it is no longer taking up spaces in the page and
 		// will cover up content on the page)
 		extra_space.height(timetable.height());
+
+		// remove affix property: the timetable following
+		// the scrollbar is already done by "navbar"
+		timetable_affix.css("position", "");
 	}
 	else
 	{
 		timetable.removeClass("footer navbar-fixed-bottom");
 		extra_space.height(0);
+
+		// we still want the timetable to follow the scrollbar
+		timetable_affix.css("position", "fixed");
 	}
 }
 

@@ -90,7 +90,7 @@
                       <% end %>
                     </td>
                     <td>
-                      <%= getHourAndMin(selection.tutorial.start_time) %> - 
+                      <%= getHourAndMin(selection.tutorial.start_time) %> -
                       <%= getHourAndMin(selection.tutorial.end_time) %>
                     </td>
                   </tr>
@@ -100,7 +100,7 @@
                         <%= getDay(selection.tutorial.second_day) %>
                       </td>
                       <td>
-                        <%= getHourAndMin(selection.tutorial.second_start_time) %> - 
+                        <%= getHourAndMin(selection.tutorial.second_start_time) %> -
                         <%= getHourAndMin(selection.tutorial.second_end_time) %>
                       </td>
                     </tr>
@@ -114,10 +114,12 @@
       </table>
     </div>
     <div class="col-md-6" id="timetable-preview">
-      <h3>Timetable Preview</h3>
-      <%= render 'layouts/timetable' %>
-      <%= render 'layouts/timetable-js/add_user_lectures' %>
-      <%= render 'layouts/timetable-js/add_user_tutorials' %>
+      <div id="timetable-affix">
+        <h3>Timetable Preview</h3>
+        <%= render 'layouts/timetable' %>
+        <%= render 'layouts/timetable-js/add_user_lectures' %>
+        <%= render 'layouts/timetable-js/add_user_tutorials' %>
+      </div>
     </div>
   </div>
 
