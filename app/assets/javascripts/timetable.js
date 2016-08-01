@@ -373,7 +373,6 @@ function windowResized()
 	var timetable_affix = $("#timetable-affix");
 	var timetable_body_wrapper = $("#timetable-body-wrapper");
 	var timetable_header_wrapper = $("#timetable-header-wrapper");
-	var timetable_header = $("#timetable-header");
 
 	if (mobile)
 	{
@@ -409,8 +408,6 @@ function windowResized()
 
 		// add hidden scrollbar to timetable-header so that it is aligned to timetable-body
 		timetable_header_wrapper.css("overflow-y", "scroll");
-		timetable_header_wrapper.css("visibility", "hidden");
-		timetable_header.css("visibility", "visible");
 	}
 }
 

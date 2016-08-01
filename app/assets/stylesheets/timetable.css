@@ -1,6 +1,12 @@
 /*
 	timetable styles
 */
+#timetable-header-wrapper {
+	visibility: hidden;
+}
+#timetable-header {
+	visibility: visible;
+}
 #timetable-header thead {
 	line-height: 1em;
 }
@@ -33,7 +39,7 @@
 }
 
 /*
-	period base style
+	base period style
 */
 #timetable .period {
 	position: relative;
@@ -55,7 +61,7 @@
 }
 
 /*
-	period custom styles
+	custom period styles
 */
 #timetable .period.selected {
 	opacity: 1.0;
