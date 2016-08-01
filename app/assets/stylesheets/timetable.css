@@ -24,7 +24,7 @@
 /*
 	borders
 */
-#timetable-header thead th[colspan="2"] {
+#timetable-header thead th {
 	border-bottom: 1px solid #e5e5e5;
 }
 #timetable-header thead th:first-child {
