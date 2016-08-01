@@ -5,26 +5,36 @@
 	</label>
 </div>
 
-<table id="timetable">
-	<thead>
-		<tr>
-			<th colspan="1"></th>
-			<% for i in 8..23 do %>
-				<th colspan="2"><div><%= i %></div></th>
-			<% end %>
-		</tr>
-	</thead>
-
-		<% [ "sun", "mon", "tue", "wed", "thu", "fri", "sat" ].each do |day| %>
-		<tbody id="<%= day %>">
-			<tr id="row-0" numofperiods="0">
-				<th rowspan="100"><div><%= day[0] %></div></th>
+<table id="timetable-wrapper">
+	<tr><td colspan="34" id="timetable-header-wrapper">
+		<table id="timetable-header">
+		<thead>
+			<tr>
+				<th colspan="2"></th>
 				<% for i in 8..23 do %>
-					<td id="time-<%= i %>00"></td>
-					<td id="time-<%= i %>30"></td>
+					<th colspan="2"><div><%= i %></div></th>
 				<% end %>
 			</tr>
-		</tbody>
-		<% end %>
+		</thead>
+		</table>
+	</td></tr>
+
+	<tr><td colspan="34">
+		<div id="timetable-body-wrapper">
+		<table id="timetable">
+			<% [ "sun", "mon", "tue", "wed", "thu", "fri", "sat" ].each do |day| %>
+			<tbody id="<%= day %>">
+				<tr id="row-0" numofperiods="0">
+					<th rowspan="100" colspan="2"><div><%= day[0] %></div></th>
+					<% for i in 8..23 do %>
+						<td id="time-<%= i %>00"></td>
+						<td id="time-<%= i %>30"></td>
+					<% end %>
+				</tr>
+			</tbody>
+			<% end %>
+		</table>
+		</div>
+	</td></tr>
 </table>
 <%= javascript_include_tag 'timetable' %>

@@ -371,6 +371,9 @@ function windowResized()
 	var timetable = $("#timetable-preview");
 	var extra_space = $("#mobile-timetable-space");
 	var timetable_affix = $("#timetable-affix");
+	var timetable_body_wrapper = $("#timetable-body-wrapper");
+	var timetable_header_wrapper = $("#timetable-header-wrapper");
+	var timetable_header = $("#timetable-header");
 
 	if (mobile)
 	{
@@ -386,6 +389,10 @@ function windowResized()
 		// remove affix property: the timetable following
 		// the scrollbar is already done by "navbar"
 		timetable_affix.css("position", "");
+
+		timetable_body_wrapper.css("max-height", "");
+		timetable_body_wrapper.css("overflow-y", "");
+		timetable_header_wrapper.css("overflow-y", "");
 	}
 	else
 	{
@@ -394,6 +401,16 @@ function windowResized()
 
 		// we still want the timetable to follow the scrollbar
 		timetable_affix.css("position", "fixed");
+
+		// calculate height and add scrollbar to timetable-body
+		var offset_y = timetable_body_wrapper.offset().top - $(window).scrollTop();
+		timetable_body_wrapper.css("max-height", $(window).height() - offset_y);
+		timetable_body_wrapper.css("overflow-y", "scroll");
+
+		// add hidden scrollbar to timetable-header so that it is aligned to timetable-body
+		timetable_header_wrapper.css("overflow-y", "scroll");
+		timetable_header_wrapper.css("visibility", "hidden");
+		timetable_header.css("visibility", "visible");
 	}
 }
 
@@ -427,7 +444,7 @@ function updateTimetableVisibility()
 
 	if (show_timetable)
 	{
-		$("#timetable").stop(true, true).show("fast");
+		$("#timetable-wrapper").stop(true, true).show("fast");
 
 		// restore timetable size
 		column_timetable_preview.removeClass("col-md-2");
@@ -439,7 +456,7 @@ function updateTimetableVisibility()
 	}
 	else
 	{
-		$("#timetable").stop(true, true).hide("fast");
+		$("#timetable-wrapper").stop(true, true).hide("fast");
 
 		// shrink the timetable column
 		column_timetable_preview.removeClass("col-md-6");
@@ -457,14 +474,7 @@ $(document).ready(function() {
 
 	// update the checkbox to reflect cookie settings
 	$("#timetable-toggle").prop( "checked", getTimetableToggle());
-
-	windowResized();
 	updateTimetableVisibility();
-
-
-	$(window).resize(function() {
-		windowResized();
-	});
 
 	$("#timetable-toggle").on("click", function()
 	{
@@ -476,4 +486,11 @@ $(document).ready(function() {
 
 		updateTimetableVisibility();
 	});
+
+	$(window).resize(function() {
+		windowResized();
+	});
 });
+
+// trigger a resize
+windowResized();

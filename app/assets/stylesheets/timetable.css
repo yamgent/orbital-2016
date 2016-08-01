@@ -1,13 +1,13 @@
 /*
 	timetable styles
 */
+#timetable-header thead {
+	line-height: 1em;
+}
 #timetable {
 	width: 100%;
 	table-layout: fixed;
 	border-collapse: separate;
-}
-#timetable thead {
-	line-height: 1em;
 }
 #timetable tbody th div {
 	float: right;
@@ -18,12 +18,15 @@
 /*
 	borders
 */
+#timetable-header thead th[colspan="2"] {
+	border-bottom: 1px solid #e5e5e5;
+}
+#timetable-header thead th:first-child {
+	border-bottom: 0;
+}
 #timetable tbody th,
 #timetable tbody td:nth-of-type(2n) {
 	border-right: 1px solid #e5e5e5;
-}
-#timetable thead th[colspan="2"] {
-	border-bottom: 1px solid #e5e5e5;
 }
 #timetable tbody tr:last-child td {
 	border-bottom: 1px solid #e5e5e5;
