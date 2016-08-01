@@ -106,4 +106,11 @@ $(document).ready(function()
     setShowClashToggle(isChecked);
     updateShowClashVisibility();
   });
+
+  $('.back-to-top').on('click', function(e) 
+  {
+    e.preventDefault();
+    $(this).blur();
+    $('html,body').stop(true, true).animate({scrollTop: 0}, 200);
+  });
 });
