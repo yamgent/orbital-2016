@@ -33,7 +33,7 @@
 
               Tutorial (<%= tut.group_number %>)
               <hr>
-              <%= getDay(tut.day) %>
+              <%= getDay(tut.day)[0..2] %>
               <%= getHourAndMin(tut.start_time) %> -
               <%= getHourAndMin(tut.end_time) %>
               <% if tut.odd? %>
@@ -44,7 +44,7 @@
 
               <% if tut.has_second_tutorial? %>
                 <hr>
-                <%= getDay(tut.second_day) %>
+                <%= getDay(tut.second_day)[0..2] %>
                 <%= getHourAndMin(tut.second_start_time) %> -
                 <%= getHourAndMin(tut.second_end_time) %>
               <% end %>
@@ -54,6 +54,7 @@
         </div>
         <% end %>
       </div>
+      <a href="#" class="back-to-top">&uarr; Back to top</a>
       <hr>
       <% end %>
     </div>

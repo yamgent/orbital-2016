@@ -82,7 +82,7 @@
                 <tbody class="not-sortable">
                   <tr>
                     <td>
-                      <%= getDay(selection.tutorial.day) %>
+                      <%= getDay(selection.tutorial.day)[0..2] %>
                       <% if selection.tutorial.odd? %>
                         <br>(Odd Week)
                       <% elsif selection.tutorial.even? %>
@@ -97,7 +97,7 @@
                   <% if selection.tutorial.has_second_tutorial? %>
                     <tr>
                       <td>
-                        <%= getDay(selection.tutorial.second_day) %>
+                        <%= getDay(selection.tutorial.second_day)[0..2] %>
                       </td>
                       <td>
                         <%= getHourAndMin(selection.tutorial.second_start_time) %> -
